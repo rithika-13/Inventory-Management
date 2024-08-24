@@ -1,39 +1,24 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Label",
-    "sap/m/Input",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
     '../model/formatter',
     "sap/ui/core/UIComponent"
 ], function (
     Controller,
     MessageToast,
-    Dialog,
-    Button,
-    Label,
-    Input,
-    Filter,
-    FilterOperator,
     formatter,
     UIComponent
 ) {
     "use strict";
     return Controller.extend("project1.controller.Products", {
         formatter: formatter,//module/file formarter.js and also providing the funciton name formater so we can call this using dot notation
-        iOldQuantity: null,
+
         onInit: function () {
             //this efers to the instance of the controller itself. and view associa
             //In SAPUI5, each view and controller typically belongs to a component. The getOwnerComponent() method 
             //returns the component instance that "owns" the current view(my case compponen.js where my route has been insialied then manifest json and etc). It is used to access the component-level resources and configurations.
-
-            this.getOwnerComponent().getModel("inventory");
             let oRouter = this.getOwnerComponent().getRouter();
             oRouter.attachRouteMatched(this.onRouteMatched, this);
-            this.iOldQuantity = null;
             //let oNavigationList = this.getView().byId("navigationList");
             // oNavigationList.setSelectedKey("products");
             // console.log("why", oNavigationList)
@@ -342,7 +327,7 @@ sap.ui.define([
             //  iOldQuantity = this.iOldQuantity;
             // Open the dialog
             oDialog.open();
-            console.log("iOldQuantity", oContext, this.iOldQuantity, oProductData.product_id)
+
 
         },
         onSaveEditProduct: function (oEvent) {
@@ -350,26 +335,13 @@ sap.ui.define([
             var oContext = oButton.getBindingContext("productsModel");
             var sProductId = oContext.getProperty("product_id");
             var oDialog = this.byId("editProductDialog");
-            //var oModel = this.getView().getModel("productsModel");
-            // Get the current context and the data bound to it
-            //  var oContext = oDialog.getBindingContext("productsModel");
-            //  var oData = oContext.getObject();
-            // Assuming your productsModel is set to update the backend automatically on changes
-            // If the model is set to manual update, you may need to call submitChanges
-            // Close the dialog
-            //var oProductsModel = this.getView().getModel("productsModel");
             var oInventoryModel = this.getView().getModel("inventory");
-            //var sProductPath = oDialog.getBindingContext("productsModel").getPath();
-            ///var oProductData = oProductsModel.getProperty(sProductPath);
             var sProductName = this.byId("inputEditProductName").getValue();
             var sCategory = this.byId("comboAddCategoryEdit").getValue();
             var iNewQuantity = this.byId("inputEditQuantity").getValue();
             var fPricePerUnit = this.byId("inputEditPrice").getValue();
 
             var omod = this.getOwnerComponent().getModel("inventory");
-            // console.log("oProductsModel", omod.oData.InventoryTransactions, oProductsModel, sProductId, this.iOldQuantity, sProductName, sCategory, iNewQuantity, fPricePerUnit)
-
-            //  console.log("what", this.validate(sProductName, sCategory, iNewQuantity, fPricePerUnit))
             if (this.iOldQuantity > iNewQuantity)
                 var sType = "OUT"
             else
@@ -381,8 +353,8 @@ sap.ui.define([
                     product_id: sProductId,
                     transaction_id: this._generateTransactionId(),
                     transaction_type: sType,
-                    quantity: iNewQuantity,
-                    transaction_date: new Date().toISOString()
+                    quantity: Math.abs(iNewQuantity - this.iOldQuantity),
+                    transaction_date: formatter.formatDate(new Date())
                 };
                 // Add the new transaction to the model
                 omod.oData.InventoryTransactions.push(oNewTransaction);

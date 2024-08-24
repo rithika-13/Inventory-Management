@@ -95,6 +95,17 @@ sap.ui.define([], function () {
             return [bValid, sMessage]
         },
 
+        formatDate: function (oDate) {
+            if (!oDate) {
+                return "";
+            }
+            // Create a DateFormat instance with your desired pattern
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                pattern: "dd-MM-yyyy"
+            });
+            // Format the date
+            return oDateFormat.format(oDate);
+        },
 
         validateQuantity: function (sValue) {
             var sMessage = "";

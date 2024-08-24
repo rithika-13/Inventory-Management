@@ -5,70 +5,70 @@
             "product_id": "P001",
             "transaction_type": "IN",
             "quantity": 100,
-            "transaction_date": "2024-08-01"
+            "transaction_date": "01-8-2024"
         },
         {
             "transaction_id": "T002",
             "product_id": "P002",
             "transaction_type": "OUT",
             "quantity": 20,
-            "transaction_date": "2024-08-02"
+            "transaction_date": "02-8-2024"
         },
         {
             "transaction_id": "T003",
             "product_id": "P003",
             "transaction_type": "IN",
             "quantity": 150,
-            "transaction_date": "2024-08-03"
+            "transaction_date": "03-8-2024"
         },
         {
             "transaction_id": "T004",
             "product_id": "P004",
             "transaction_type": "OUT",
             "quantity": 50,
-            "transaction_date": "2024-08-04"
+            "transaction_date": "04-8-2024"
         },
         {
             "transaction_id": "T005",
             "product_id": "P005",
             "transaction_type": "IN",
             "quantity": 200,
-            "transaction_date": "2024-08-05"
+            "transaction_date": "05-8-2024"
         },
         {
             "transaction_id": "T006",
             "product_id": "P006",
             "transaction_type": "OUT",
             "quantity": 30,
-            "transaction_date": "2024-08-06"
+            "transaction_date": "06-8-2024"
         },
         {
             "transaction_id": "T007",
             "product_id": "P007",
             "transaction_type": "IN",
             "quantity": 120,
-            "transaction_date": "2024-08-07"
+            "transaction_date": "07-8-2024"
         },
         {
             "transaction_id": "T008",
             "product_id": "P008",
             "transaction_type": "OUT",
             "quantity": 80,
-            "transaction_date": "2024-08-08"
+            "transaction_date": "08-8-2024"
         },
         {
             "transaction_id": "T009",
             "product_id": "P009",
             "transaction_type": "IN",
             "quantity": 90,
-            "transaction_date": "2024-08-09"
+            "transaction_date": "09-8-2024"
         },
         {
             "transaction_id": "T010",
             "product_id": "P010",
             "transaction_type": "OUT",
             "quantity": 60,
-            "transaction_date": "2024-08-10"
+            "transaction_date": "10-8-2024"
         }
     ]
 }
