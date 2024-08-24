@@ -1,0 +1,174 @@
+<mvc:View
+    controllerName="project1.controller.Suppliers"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core">
+    
+    <tnt:ToolPage id="suppliers">
+        <tnt:header>
+            <tnt:ToolHeader>
+                <Button
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    press="onSideNavButtonPress"
+                    tooltip="{i18n>sideNavigationToggleButtonTooltip}">
+                </Button>
+                <Title text="{i18n>Suppliers}" level="H2"/>
+            </tnt:ToolHeader>
+        </tnt:header>
+        
+        <tnt:sideContent>
+            <!-- Include the Fragment Here -->
+            <tnt:SideNavigation>
+        <tnt:NavigationList  id="navigationList" itemSelect="onNavSelect">
+        <tnt:NavigationListItem
+                id="homeNavItem"
+                text="Home"
+                icon="sap-icon://home"
+                key="home"
+                select="onNavBack"
+                />
+            <tnt:NavigationListItem
+                id="manageNavItem"
+                text="{i18n>sideNavigationManage}"
+                icon="sap-icon://supplier"
+                key="products"
+                
+               />
+            
+        </tnt:NavigationList>
+    </tnt:SideNavigation>
+        </tnt:sideContent>
+        
+        <tnt:mainContents>
+            <App id="mainContents">
+                <Page title="{i18n>supplierTableTitle}">
+                    <customHeader>
+                        <OverflowToolbar>
+                            <SearchField id="searchField" search=".onSearch" width="auto" placeholder="{i18n>searchFieldPlaceholder}"/>
+                        </OverflowToolbar>
+                    </customHeader>
+                    
+                    <content>
+                        <Table id="supplierTable"  items="{suppliersModel>/Suppliers}" mode="MultiSelect" selectionChange=".onSelectionChange">
+                            <columns>
+                                <Column width="15%">
+                                    <Text text="{i18n>supplierIDColumn}"/>
+                                </Column>
+                                <Column width="20%">
+                                    <Text text="{i18n>supplierNameColumn}"/>
+                                </Column>
+                                <Column width="15%">
+                                    <Text text="{i18n>productIdColumn}"/> <!-- Added Product ID column -->
+                                </Column>
+                                <Column width="20%">
+                                    <Text text="{i18n>contactNameColumn}"/>
+                                </Column>
+                                <Column width="20%">
+                                    <Text text="{i18n>contactEmailColumn}"/>
+                                </Column>
+                                <Column width="15%">
+                                    <Text text="{i18n>contactPhoneColumn}"/>
+                                </Column>
+                                <Column width="5%">
+                                    <Text text=""/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem >
+                                    <cells>
+                                        <Text text="{suppliersModel>supplier_id}"/>
+                                        <Text text="{suppliersModel>supplier_name}"/>
+                                        <Text text="{suppliersModel>product_ids}"/> <!-- Added Product ID data binding -->
+                                        <Text text="{suppliersModel>contact_name}"/>
+                                        <Text text="{suppliersModel>contact_email}"/>
+                                        <Text text="{suppliersModel>contact_phone}"/>
+                                        <HBox>
+                                            <Button icon="sap-icon://edit" press="onEditSupplier"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+
+                    <!-- Dialog for Adding a Supplier -->
+                    <VBox id="addSupplierDialogContainer">
+                        <Dialog
+                            id="addSupplierDialog"
+                            title="Add Supplier"
+                            class="sapUiResponsivePadding"
+                            resizable="true">
+                            <content>
+                                <VBox>
+                                    <Label text="Supplier Name" labelFor="inputAddSupplierName"/>
+                                    <Input id="inputAddSupplierName" type="Text" />
+                                    
+                                    <Label text="Product ID" labelFor="inputAddProductId"/> <!-- Added Product ID input -->
+                                    <Input id="inputAddProductId" type="Text" />
+                                    
+                                    <Label text="Contact Name" labelFor="inputAddContactName"/>
+                                    <Input id="inputAddContactName" type="Text" />
+                                    
+                                    <Label text="Contact Email" labelFor="inputAddContactEmail"/>
+                                    <Input id="inputAddContactEmail" type="Email"  />
+                                    
+                                    <Label text="Contact Phone" labelFor="inputAddContactPhone"/>
+                                    <Input id="inputAddContactPhone" type="Tel" />
+                                </VBox>
+                            </content>
+                            <beginButton>
+                                <Button text="Add" press="onConfirmAddSupplier" type="Accept"/>
+                            </beginButton>
+                            <endButton>
+                                <Button text="Cancel" press="onCancelAddSupplier" type="Reject"/>
+                            </endButton>
+                        </Dialog>
+                    </VBox>
+
+                    <!-- Dialog for Editing a Supplier -->
+               
+                        <Dialog
+                            id="editSupplierDialog"
+                            title="Edit Supplier"
+                            class="sapUiResponsivePadding"
+                            resizable="true">
+                            <content>
+                                <VBox>
+                                    <Label text="Supplier Name" />
+                                    <Input id="inputEditSupplierName" value="{suppliersModel>supplier_name}" />
+
+                                    <Label text="Product ID" /> <!-- Added Product ID input -->
+                                    <Input id="inputEditProductId" value="{suppliersModel>product_ids}"/>
+                                    
+                                    <Label text="Contact Name" />
+                                    <Input id="inputEditContactName" value="{suppliersModel>contact_name}"  />
+                                    
+                                    <Label text="Contact Email" />
+                                    <Input id="inputEditContactEmail" value="{suppliersModel>contact_email}" />
+                                    
+                                    <Label text="Contact Phone" />
+                                    <Input id="inputEditContactPhone" value="{suppliersModel>contact_phone}" />
+                                </VBox>
+                            </content>
+                            <beginButton>
+                                <Button text="Save" press=".onSaveEditSupplier" type="Accept"/>
+                            </beginButton>
+                            <endButton>
+                                <Button text="Cancel" press=".onCancelEditSupplier" type="Reject"/>
+                            </endButton>
+                        </Dialog>
+                   
+                    <footer>
+                        <Toolbar height="60px">
+                            <ToolbarSpacer/>
+                            <Button id="deleteSelectedButton" type="Reject" text="{i18n>deleteSelectedButton}" press="onDeleteSelectedSuppliers" enabled="false"/>
+                            <Button id="addSelectedButton" text="{i18n>addSupplierButton}" type="Accept" press="onAddSupplier"/>
+                        </Toolbar>
+                    </footer>
+                </Page>
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

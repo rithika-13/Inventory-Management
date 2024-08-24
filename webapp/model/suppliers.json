@@ -1,0 +1,76 @@
+{
+    "Suppliers": [
+        {
+            "supplier_id": "S001",
+            "supplier_name": "Tech Supplies Ltd.",
+            "contact_name": "Alice Johnson",
+            "contact_email": "alice.johnson@techsupplies.com",
+            "contact_phone": "1234567890",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids": "P001"
+        },
+        {
+            "supplier_id": "S002",
+            "supplier_name": "Electro Goods Inc.",
+            "contact_name": "Bob Smith",
+            "contact_email": "bob.smith@electrogoods.com",
+            "contact_phone": "0987654321",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids":"P001"
+        },
+        {
+            "supplier_id": "S003",
+            "supplier_name": "Gadget World",
+            "contact_name": "Charlie Brown",
+            "contact_email": "charlie.brown@gadgetworld.com",
+            "contact_phone": "1122334455",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids": "P002"
+        },
+        {
+            "supplier_id": "S004",
+            "supplier_name": "Global Tech Solutions",
+            "contact_name": "David Wilson",
+            "contact_email": "david.wilson@globaltech.com",
+            "contact_phone": "2233445566",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids": "P002"
+        },
+        {
+            "supplier_id": "S005",
+            "supplier_name": "Innovative Electronics",
+            "contact_name": "Emma Davis",
+            "contact_email": "emma.davis@innovativeelectronics.com",
+            "contact_phone": "3344556677",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids":  "P003" 
+        },
+        {
+            "supplier_id": "S006",
+            "supplier_name": "Advanced Tech Co.",
+            "contact_name": "Frank Taylor",
+            "contact_email": "frank.taylor@advancedtech.com",
+            "contact_phone": "4455667788",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids": "P003"  
+        },
+        {
+            "supplier_id": "S007",
+            "supplier_name": "Future Gadgets Ltd.",
+            "contact_name": "Grace Lee",
+            "contact_email": "grace.lee@futuregadgets.com",
+            "contact_phone": "5566778899",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids":"P004"  
+        },
+        {
+            "supplier_id": "S008",
+            "supplier_name": "Supreme Electronics",
+            "contact_name": "Henry Martinez",
+            "contact_email": "henry.martinez@supremeelectronics.com",
+            "contact_phone": "6677889900",
+            "image_url": "https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "product_ids": "P004"  
+        }
+    ]
+}

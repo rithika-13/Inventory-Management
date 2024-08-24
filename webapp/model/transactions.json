@@ -1,0 +1,18 @@
+{
+    "Transactions": [
+        {
+            "transaction_id": "T001",
+            "product_id": "P001",
+            "transaction_type": "IN",
+            "quantity": 20,
+            "transaction_date": "2023-07-01"
+        },
+        {
+            "transaction_id": "T002",
+            "product_id": "P002",
+            "transaction_type": "OUT",
+            "quantity": 10,
+            "transaction_date": "2023-07-02"
+        }
+    ]
+}

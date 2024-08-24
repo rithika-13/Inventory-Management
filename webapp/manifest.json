@@ -1,0 +1,172 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{InventoryManagementSystem}}",
+    "description": "{{Description}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.0",
+      "toolsId": "524617a4-6146-44d5-bd23-ecc65b916d68"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.125.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},      
+        "sap.viz": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n"
+        }
+      },
+      "productsModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/products.json"
+      },
+      "suppliersModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/suppliers.json"
+      },
+      "inventory": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/inventory.json"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "project1.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "home",
+          "pattern": "",
+          "target": "home"
+        },
+        {
+          "name": "products",
+          "pattern": "products",
+          "target": "products"
+        },
+        {
+          "name": "productDetails",
+          "pattern": "products/{productId}",
+          "target": "productDetails"
+        },
+        {
+          "name": "suppliers",
+          "pattern": "suppliers/:productId:",
+          "target": "suppliers"
+        },
+        {
+          "name": "reports",
+          "pattern": "reports",
+          "target": "reports"
+        },
+        {
+          "name": "inventory",
+          "pattern": "inventory",
+          "target": "inventory"
+        }
+      ],
+      "targets": {
+        "home": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "home",
+          "viewName": "App"
+        },
+        "products": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "products",
+          "viewName": "Products"
+        },
+        "suppliers": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "suppliers",
+          "viewName": "Suppliers"
+        },
+        "reports": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "reports",
+          "viewName": "Reports"
+        },
+        "productDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          
+          "viewId": "productDetails",
+          "viewName": "ProductDetails"
+        },
+        "inventory": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          
+          "viewId": "inventory",
+          "viewName": "Inventory"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    }
+  }
+}

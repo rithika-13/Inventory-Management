@@ -1,0 +1,169 @@
+<mvc:View
+    controllerName="project1.controller.Products"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core">
+    <tnt:ToolPage id="products" >
+        <tnt:header >             
+            <tnt:ToolHeader>
+                <Button
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    press="onSideNavButtonPress"
+                    tooltip="{i18n>sideNavigationToggleButtonTooltip}">
+                </Button>
+                <Title text="{i18n>Products}" level="H2" />
+            </tnt:ToolHeader>
+        </tnt:header>
+         <tnt:sideContent>
+            <!-- Include the Fragment Here -->
+            <core:Fragment fragmentName="project1.fragments.SideNavigation" type="XML"/>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="mainContents">
+                <Page title="{i18n>productTableTitle}">
+                    <customHeader>                               
+                    	<OverflowToolbar>
+
+                         <SearchField id="searchField" search=".onSearch" width="auto" placeholder="{i18n>searchFieldPlaceholder}"/>
+                                            <Label text="{i18n>filterLabel}" labelFor="filterComboBox" />
+                                            <ComboBox id="filterComboBox" change=".onFilterChange" width="200px" showClearIcon="true"  > 
+                                                <core:Item key="ERP Software" text="{i18n>filterCategory1}"/>
+                                                <core:Item key="Cloud Platform" text="{i18n>filterCategory2}"/>
+                                            </ComboBox>
+			</OverflowToolbar>
+                            
+                        </customHeader>
+                            <content>
+                              <Table id="productTable"  items="{productsModel>/Products}" mode="MultiSelect" selectionChange=".onSelectionChange">
+                            <columns>
+                                <Column width="15%" >
+                                    <Text text="{i18n>productIDColumn}"/>
+                                </Column>
+                                <Column width="30%">
+                                    <Text text="{i18n>productNameColumn}"/>
+                                </Column>
+                                <Column width="10%">
+                                    <Text text="{i18n>categoryColumn}"/>
+                                </Column>
+                                <Column hAlign="Right" width="15%">
+                                    <Text text="{i18n>quantityInStockColumn}"/>
+                                </Column>
+                                <Column hAlign="Right" width="15%">
+                                    <Text text="{i18n>pricePerUnitColumn}"/>
+                                </Column>
+                                <Column width="5%">
+                                    <Text text=""/>
+                                </Column>
+                                <Column width="10%">
+                                    <Text text=""/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onMoreDetails">
+                                    <cells>
+                                        <Text text="{productsModel>product_id}"/>
+                                        <Text text="{productsModel>product_name}"/>
+                                        <Text text="{productsModel>category}"/>
+                                        <ObjectNumber
+                                            number="{
+                                                path: 'productsModel>quantity_in_stock'
+
+                                            }"
+                                            state="{
+                                                path: 'productsModel>quantity_in_stock',
+                                                formatter: '.formatter.quantityClass'
+                                            }"
+                                        />
+                                        <Text text="{path: 'productsModel>price_per_unit', formatter: '.formatter.formatCurrency'}"/>
+                                        <HBox>
+                                            <Button icon="sap-icon://edit" press="onEditProduct"/>
+                                        </HBox>
+                                        <Image
+                                            src="{productsModel>thumbnail}"
+                                            alt="{productsModel>product_name}"
+                                            width="50px"
+                                            height="50px"
+                                            class="sapUiSmallMarginEnd"
+                                        />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                    <VBox id="add">
+        <Dialog
+            id="addProductDialog"
+            title="Add Product"
+            class="sapUiResponsivePadding" resizable="true" visible="true">
+            
+             <content>
+        <VBox>
+            <Label text="Product Name" labelFor="inputAddProductName" />
+            <Input id="inputAddProductName"   />
+
+            <Label text="Category" labelFor="comboAddCategory"/>
+            <ComboBox id="comboAddCategory" width="100%">
+                <core:Item key="ERP Software" text="ERP Software"/>
+                <core:Item key="Cloud Platform" text="Cloud Platform"/>
+            </ComboBox>
+
+            <Label text="Quantity in Stock" labelFor="inputAddQuantity"/>
+            <Input id="inputAddQuantity" type="Number"/>
+
+            <Label text="Price per Unit" labelFor="inputAddPrice"/>
+            <Input id="inputAddPrice" type="Number"/>
+        </VBox>
+    </content>
+
+            <beginButton>
+                <Button text="Add" press="onConfirmAddProduct" type="Accept"/>
+            </beginButton>
+            
+            <endButton>
+                <Button text="Cancel" press="onCancelAddProduct" type="Attention"/>
+            </endButton>
+        </Dialog>
+    </VBox>
+    <Dialog
+        id="editProductDialog"
+        title="Edit Product" resizable="true" visible="true"> 
+        <content>
+            <VBox>
+                <Label text="Product Name" />
+                <Input id="inputEditProductName" value="{productsModel>product_name}" />
+
+                  <Label text="Category" labelFor="comboAddCategory"/>
+            <ComboBox id="comboAddCategoryEdit" width="100%">
+                <core:Item key="ERP Software" text="ERP Software"/>
+                <core:Item key="Cloud Platform" text="Cloud Platform"/>
+            </ComboBox>
+
+                <Label text="Quantity in Stock" />
+                <Input id="inputEditQuantity" value="{productsModel>quantity_in_stock}" type="Number" />
+
+                <Label text="Price per Unit" />
+                <Input id="inputEditPrice" value="{productsModel>price_per_unit}" type="Number"/>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" press=".onSaveEditProduct" type="Accept" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCancelEditProduct" type="Attention"/>
+        </endButton>
+    </Dialog>
+                    <footer>
+                        <Toolbar height="60px" >
+                            <ToolbarSpacer/>
+                            <Button id="deleteSelectedButton" type="Reject" text="{i18n>deleteSelectedButton}" press="onDeleteSelectedProducts" visible="true"  enabled="false"/>
+                            <Button id="addSelectedButton" text="{i18n>addProductButton}"  type="Accept" press="onAddProduct" visible="true" />
+                            </Toolbar>
+                    </footer>
+                </Page>
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>
+    

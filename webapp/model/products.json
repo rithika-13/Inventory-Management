@@ -1,0 +1,114 @@
+{
+    "Products": [
+        {
+            "product_id": "P001",
+            "product_name": "SAP S/4HANA",
+            "category": "ERP Software",
+            "quantity_in_stock": 10,
+            "price_per_unit": 12000,
+            "supplier_ids": ["S001", "S002"],  
+            "description": "An intelligent ERP suite designed to support innovation and business agility.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P002",
+            "product_name": "SAP Business Technology Platform",
+            "category": "Cloud Platform",
+            "quantity_in_stock": 3,
+            "price_per_unit": 15000,
+            "supplier_ids": ["S003", "S004"],  
+            "description": "A comprehensive platform for cloud services, data management, and analytics.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P003",
+            "product_name": "SAP SuccessFactors",
+            "category": "ERP Software",
+            "quantity_in_stock": 50,
+            "price_per_unit": 8000,
+            "supplier_ids": ["S005", "S006"], 
+            "description": "A complete human resources management system for managing employee data and performance.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P004",
+            "product_name": "SAP HANA Cloud",
+            "category": "Cloud Platform",
+            "quantity_in_stock": 8,
+            "price_per_unit": 18000,
+            "supplier_ids": ["S001", "S002"], 
+            "description": "A powerful in-memory cloud database for real-time data processing and analytics.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P005",
+            "product_name": "SAP Ariba",
+            "category": "ERP Software",
+            "quantity_in_stock": 20,
+            "price_per_unit": 9000,
+            "supplier_ids": ["S002", "S003"],  
+            "description": "A procurement and supply chain management solution to simplify buying and selling processes.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P006",
+            "product_name": "SAP Cloud Platform Integration",
+            "category": "Cloud Platform",
+            "quantity_in_stock": 15,
+            "price_per_unit": 16000,
+            "supplier_ids": ["S001", "S003"],  
+            "description": "A versatile integration service to connect on-premise and cloud applications.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P007",
+            "product_name": "SAP Analytics Cloud",
+            "category": "ERP Software",
+            "quantity_in_stock": 12,
+            "price_per_unit": 14000,
+            "supplier_ids": ["S002", "S003"],  
+            "description": "A comprehensive analytics solution for data visualization, planning, and predictive analytics.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P008",
+            "product_name": "SAP Fiori",
+            "category": "ERP Software",
+            "quantity_in_stock": 35,
+            "price_per_unit": 7000,
+            "supplier_ids": ["S001", "S003"],  
+            "description": "A user experience design platform to create intuitive and responsive enterprise applications.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P009",
+            "product_name": "SAP Integrated Business Planning",
+            "category": "ERP Software",
+            "quantity_in_stock": 5,
+            "price_per_unit": 11000,
+            "supplier_ids": ["S001", "S002"],  
+            "description": "A supply chain planning solution to optimize and integrate business processes.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        },
+        {
+            "product_id": "P010",
+            "product_name": "SAP Data Intelligence",
+            "category": "ERP Software",
+            "quantity_in_stock": 18,
+            "price_per_unit": 13000,
+            "supplier_ids": ["S002", "S003"],  
+            "description": "A data management solution to connect, discover, and orchestrate data across the enterprise.",
+            "thumbnail":"https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg",
+            "image_url": ["https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg","https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_1920,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg"]
+        }
+    ]
+}

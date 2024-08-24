@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Inventory Management System</title>
+        <!-- SAPUI5 Bootstrap Script to load the framework to initialize SAPUI5 runtime automatically as soon as the script is loaded and executed by the browser.
+         note- If you run your app standalone, the bootstrap is added to your HTML page. In an SAP Fiori launchpad environment, the launchpad executes the bootstrap and no additional HTML page is needed to display the app.
+        
+        The attributes data-sap-ui-theme="sap_horizon" and data-sap-ui-libs="sap.m" already provide examples of how SAPUI5 runtime can be configured to the needs of an application.
+        The module export of sap/ui/core/Core is not a class, but the singleton Core instance itself.
+
+        The sap.ui.core.Core class must not be instantiated, except by the framework itself.
+
+        Path to the SAPUI5 core library.
+
+        sap-ui-core.js	
+   src="/resources/sap-ui-core.js"--there are two ways to load libs and resoucres..that is in node modules here or if in lainchpad then not nesccary This is the standard bootstrap file, which we recommend to use for typical use cases. It already contains jQuery, jquery-ui-position and only the minimum required parts of the core library (sap.ui.core).
+        edge-latest version
+        resoruceroots-is an engine in sap whic will find the compnint in the html file which will call the compnent.js -->
+
+        <script id="sap-ui-bootstrap"
+            src="/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_horizon" 
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-libs="sap.m, sap.ui.core, sap.ui.layout, sap.viz"
+            data-sap-ui-resourceroots='{"project1": "./"}'
+            data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+			data-sap-ui-async="true">
+        </script>
+         <link rel="stylesheet" href="css/style.css">
+    </head>
+<!-- 1) doubt bettwen ui compont and oninit
+ 2)in control agregation, and clear controlagregation whcih is default??
+ 
+ -->
+    <body id="content" class="sapUiBody">
+        <div
+        data-sap-ui-component
+        data-name="project1"
+        data-id="container"
+        data-settings='{"id" : "project1"}'
+        data-handle-validation="true"
+    ></div>
+    </body>
+</html>

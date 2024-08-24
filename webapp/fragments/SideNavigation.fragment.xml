@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+                         xmlns:tnt="sap.tnt"
+                         xmlns="sap.m"
+                         xmlns:core="sap.ui.core">
+    <tnt:SideNavigation>
+        <tnt:NavigationList  id="navigationList" itemSelect="onNavSelect">
+        <tnt:NavigationListItem
+                id="homeNavItem"
+                text="Home"
+                icon="sap-icon://home"
+                key="home"
+                select="onNavBack"
+                />
+            <tnt:NavigationListItem
+                id="manageNavItem"
+                text="{i18n>sideNavigationManage}"
+                icon="sap-icon://product"
+                key="products"
+               />
+            <tnt:NavigationListItem
+                id="reportsNavItem"
+                text="{i18n>sideNavigationAnalysisAndReports}"
+                icon="sap-icon://manager-insight"
+                key="reports"
+              
+                />
+        </tnt:NavigationList>
+    </tnt:SideNavigation>
+</core:FragmentDefinition>

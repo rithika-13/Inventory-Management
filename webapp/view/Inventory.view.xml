@@ -1,0 +1,54 @@
+<mvc:View
+    controllerName="project1.controller.Inventory"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page title="{i18n>InventoryManagement}"
+          showNavButton="true"
+          navButtonPress="onNavBack">
+        <content>
+            <Panel  headerText="{i18n>transactionsOverview}" expandable="true" expanded="true">
+                <Table
+                    id="inventoryTable"
+                    inset="false"
+                    width="auto"
+                    items="{
+                        path: 'inventory>/InventoryTransactions',
+                        sorter: {
+                            path: 'transaction_date',
+                            descending: true
+                        }
+                    }">
+                    <columns>
+                        <Column>
+                            <Text text="{i18n>transactionIDColumn}"/>
+                        </Column>
+                        <Column>
+                            <Text text="{i18n>productIDColumn}"/>
+                        </Column>
+                        <Column>
+                            <Text text="{i18n>transactionTypeColumn}"/>
+                        </Column>
+                        <Column hAlign="Right" width="10%">
+                            <Text text="{i18n>quantityColumn}"/>
+                        </Column>
+                        <Column hAlign="Right">
+                            <Text text="{i18n>transactionDateColumn}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{inventory>transaction_id}"/>
+                                <Text text="{inventory>product_id}"/>
+                                <Text text="{inventory>transaction_type}"/>
+                                <Text text="{inventory>quantity}"/>
+                                <Text text="{inventory>transaction_date}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

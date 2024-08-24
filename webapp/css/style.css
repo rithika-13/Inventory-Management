@@ -1,0 +1,34 @@
+.productDetailsContainer {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.productInfoLabel {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.productInfoText {
+    color: #333;
+}
+.roundedListItem {
+    border-radius: 12px; /* Adjust this value as needed */
+    overflow: hidden; /* Ensure contents are clipped to rounded edges */
+    margin-bottom: 10px; /* Optional: Add spacing between items */
+}
+
+/* Optional: Add a box-shadow for a better visual effect */
+.roundedListItem .sapUiListItem {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Custom CSS for SmartFilterBar */
+#smartFilterBar {
+    max-width: 600px; /* Adjust as needed */
+    overflow: hidden; /* Hide overflow if necessary */
+}
+
+/* Ensure the container does not overflow */
+.contentRight {
+    overflow: auto;
+}

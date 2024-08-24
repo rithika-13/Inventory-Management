@@ -1,0 +1,157 @@
+<mvc:View
+    controllerName="project1.controller.ProductDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+
+    <Page
+        id="productDetailsPage"
+        title="Product Details"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+
+        <content>
+            <layout:Splitter orientation="Horizontal" id="splitter" width="200%">
+                <!-- Product Details Pane -->
+                <layout:contentAreas>
+                    <VBox class="sapUiSmallMargin" width="100%">
+                        <HBox alignItems="Start" class="sapUiSmallMargin">
+                            <!-- VBox for Carousel -->
+                            <VBox class="sapUiSmallMargin">
+                                <Carousel
+                                    id="productCarousel"
+                                    height="300px"
+                                    width="300px"
+                                    loop="true"
+                                    pages="{path: 'productDetailsModel>/image_url'}">
+                                    <Image src="{productDetailsModel>}" />
+                                </Carousel>
+                            </VBox>
+
+                            <!-- VBox for Product Details -->
+                            <VBox class="sapUiSmallMargin" width="60%">
+                                <ObjectHeader
+                                    id="productHeader"
+                                    title="{productDetailsModel>/product_name}"
+                                    titleLevel="H3"
+                                    number="{path : 'productDetailsModel>/price_per_unit', formatter: '.formatter.formatCurrency'}"
+                                   >
+
+                                    <attributes>
+                                        <ObjectAttribute
+                                            title="Product ID"
+                                            text="{productDetailsModel>/product_id}"/>
+                                        <ObjectAttribute
+                                            title="Category"
+                                            text="{productDetailsModel>/category}"/>
+                                        <ObjectAttribute
+                                            title="Quantity in Stock"
+                                            text="{productDetailsModel>/quantity_in_stock}"/>
+                                        <ObjectAttribute
+                                            title="Description"
+                                            text="{productDetailsModel>/description}"/>
+                                    </attributes>
+                                </ObjectHeader>
+
+                                <!-- Supplier Info Button -->
+                                <Button
+                                    id="supplierInfoButton"
+                                    text="Supplier Info "
+                                    press="onManageSupplierPress"
+                                    tooltip="Click to view supplier details" />
+                            </VBox>
+
+                            <!-- Align Delete Button to the Right -->
+                            <VBox class="sapUiSmallMargin" justifyContent="End" width="auto" alignItems="End">
+                                <Button
+                                    id="delete"
+                                    icon="sap-icon://delete"
+
+                                    press="onDelete"
+                                    tooltip="Click to delete the product" />
+                                     <Button
+                                    id="edit"
+                                  icon="sap-icon://edit"
+
+                                    press="onEdit"
+                                    tooltip="Click to delete the product" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Supplier Details Pane -->
+                    <VBox id="supplierDetailsPane" class="sapUiLargeMargin" width="30%" visible="false">
+                        <Title text="Suppliers" level="H2" class="sapUiLargeMarginTop" titleStyle="H3" />
+
+                        <List items="{suppliersDetailModel>/}">
+                            <ObjectListItem
+                                title="{suppliersDetailModel>supplier_name}"
+                                class="roundedListItem"
+                                type="Active"
+                                press="onSupplierDetailsPress">
+                                <attributes>
+                                    <ObjectAttribute
+                                        title="Email"
+                                        text="{suppliersDetailModel>contact_email}" />
+                                </attributes>
+                            </ObjectListItem>
+                        </List>
+
+                        <!-- Popover for Supplier Details -->
+                         <Popover id="supplierPopover" title="" placement="Bottom" visible="false">
+                            <VBox>
+                                <Image
+                                    id="supplierImage"
+                                    width="20em"
+                                    height="auto"
+                                    src="{suppliersDetailModel>/image_url}" />
+                                <ObjectHeader
+                                    id="supplierPopoverHeader"
+                                    title="{suppliersDetailModel>/supplier_name}"
+                                    titleLevel="H5"
+                                    icon="sap-icon://supplier">
+                                    <attributes>
+                                        <ObjectAttribute title="Supplier ID" text="{suppliersDetailModel>/supplier_id}" />
+                                        <ObjectAttribute title="Contact Phone" text="{suppliersDetailModel>/contact_phone}" />
+                                        <ObjectAttribute title="Contact Email" text="{suppliersDetailModel>/contact_email}" />
+                                    </attributes>
+                                </ObjectHeader>
+                            </VBox>
+                        </Popover>
+                    </VBox>
+                </layout:contentAreas>
+            </layout:Splitter>
+             
+    <Dialog
+        id="editProductDialogDetails"
+        title="Edit Product" resizable="true" visible="true"> 
+        <content>
+            <VBox>
+                <Label text="Product Name" />
+                <Input id="inputEditProductNameDetails" />
+
+                  <Label text="Category" labelFor="comboAddCategory"/>
+            <ComboBox id="comboAddCategoryEditDetails" width="100%">
+                <core:Item key="ERP Software" text="ERP Software"/>
+                <core:Item key="Cloud Platform" text="Cloud Platform"/>
+            </ComboBox>
+
+                <Label text="Quantity in Stock" />
+                <Input id="inputEditQuantityDetails"  type="Number" />
+
+                <Label text="Price per Unit" />
+                <Input id="inputEditPriceDetails"  type="Number"/>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" press=".onSaveEditProduct" type="Accept" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCancelEditProduct" type="Attention"/>
+        </endButton>
+    </Dialog>
+        </content>
+         
+    </Page>
+</mvc:View>

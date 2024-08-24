@@ -1,0 +1,233 @@
+{
+  
+  //doubts-clearcontrolagreegation adn control aggrgation
+  //controlAggregation: Specifies the container (pages) within the App control where new views (like Home or Details) will be placed.
+//clearControlAggregation: Controls whether to clear existing content in the pages aggregation before adding a new view.
+  
+  
+  "_version": "1.59.0",  // The version of the manifest schema being used. This ensures compatibility with the specific version of SAPUI5.for every release there is a patrucular version of sapui5 being released t to align with this there is new version if the manifest version too
+  "sap.app": {//What: Defines metadata about the SAPUI5 application. Why: Provides essential information about the application for deployment and runtime. How: Included in the manifest.json file and used by the SAPUI5 runtime.
+    "id": "project1",  // The unique identifier of the application. It should be a globally unique ID.basically the name of the application that u give when u initiliaze the firori app
+    "type": "application",  // Indicates whether it's an application, library, or reusable component. "application" indicates that this is a standalone SAPUI5 application.
+    "i18n": "i18n/i18n.properties",  // Path to the internationalization (i18n) properties file. This file contains translations for the application.
+    "applicationVersion": {
+      "version": "0.0.1"  // The version of the application. This is useful for version control and updates.
+    },
+    "title": "Inventory Management System",  // The title of the application, which may be displayed in the UI.meaning default, if incase i dont give it in the html file
+    "description": "A simple inventory management system using SAPUI5.",  // A brief description of the application.
+    "resources": "resources.json",  // Path to the resources.json file, which defines additional resources (e.g., CSS, JS files) used by the application.
+    "sourceTemplate": {  // Metadata about the template used to generate the project.
+      "id": "@sap/generator-fiori:basic",  //i used basic ,while generating/ Identifier of the template generator used.
+      "version": "1.14.0",  // Version of the template generator.
+      "toolsId": "524617a4-6146-44d5-bd23-ecc65b916d68"  //Identifies the specific instance or version of the tool used. A unique identifier for the toolset or generator used.Automatically set by the template generator.
+    }
+  }
+},
+
+"sap.ui": {// Contains metadata related to the UI aspects of the application.Defines the UI technology, icons, and supported device types for the application.
+"technology": "UI5", // The technology stack used for the application. "UI5", "React".
+
+    "icons": {
+      "icon":,  // URL or path to the default icon used by the application. Example: "/images/app-icon.png".
+
+      "favIcon": ,  // URL or path to the favicon used by the application. Example: "/images/favicon.ico".
+
+      "phone":,  // URL or path to the icon specifically for phones. Example: "/images/phone-icon.png".
+
+          },
+
+    "deviceTypes": {
+      "desktop": true,  // Indicates whether the application supports desktop devices. Example: true.
+
+      "tablet": true,  // Indicates whether the application supports tablet devices. Example: true.
+
+      "phone": true  // Indicates whether the application supports phone devices. Example: true.
+    }
+
+},
+
+"sap.ui5": {//Contains configuration for the SAPUI5 application. Defines important settings and dependencies needed for the application to run.
+"flexEnabled": false, //Specifies whether UI flexibility features (like key user adaptation) are enabled..
+
+    "dependencies": {//Ensures the application loads the necessary libraries and has the correct version 
+      "minUI5Version": "1.125.1",  // Minimum version of UI5 required by the application. Example: "1.87.0".
+
+      "libs": {
+        "sap.m": {},  // Example of a UI library dependency without specific version requirements.
+        "sap.ui.core": {},  // in mine for mvc
+        "sap.f": {"minVersion": "1.74.0"},  // Example of a Fiori library dependency with a minimum version requirement.
+        "sap.suite.ui.generic.template": {},  // Example of a generic UI template library dependency.
+        "sap.ui.comp": {},  // Example of a component library dependency.
+        "sap.ui.generic.app": {},  // Example of a generic application library dependency.
+        "sap.ui.table": {"lazy": true},  // Example of a table component library dependency that is lazy-loaded.
+        "sap.ushell": {},  // Example of a UI shell library dependency.
+        "sap.viz": {}  // Example of a visualization library dependency.
+      }
+    },
+
+    "contentDensities": {//visuals of the app
+      "compact": true,  // Optimized for desktop use with more compact spacing.
+    },
+
+    "models": {//Defines the data models used in the application.
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",  // Type of the internationalization model used. given by sap, for trasnaltion.
+
+        "settings": {
+          "bundleName": "project1.i18n.i18n"  // Name of the language resource bundle. Example: "myApp.i18n.i18n".
+        }
+      },
+
+      "productsModel": {
+        "type": "sap.ui.model.json.JSONModel",  // Type of the JSON model used for products. 
+
+        "uri": "model/products.json"  // URI or path to the JSON file containing products data. Example: "model/products.json".
+      },
+
+      "suppliersModel": {
+        "type": "sap.ui.model.json.JSONModel",  // Type of the JSON model used for suppliers. Example: "sap.ui.model.json.JSONModel".
+
+        "uri": "model/suppliers.json"  // URI or path to the JSON file containing suppliers data. Example: "model/suppliers.json".
+      },
+
+      "transactionsModel": {
+        "type": "sap.ui.model.json.JSONModel",  // Type of the JSON model used for transactions. Example: "sap.ui.model.json.JSONModel".
+
+        "uri": "model/transactions.json"  // URI or path to the JSON file containing transactions data. Example: "model/transactions.json".
+      }
+    },
+
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"  // URI or path to the CSS file used by the application. Example: "css/style.css".
+        }
+      ]
+    },
+
+    "routing": {
+      "config": {// defaulit routing
+        "routerClass": "sap.m.routing.Router",  // Class of the router used for navigation. Example: "sap.m.routing.Router".
+
+        "viewType": "XML",  // Type of views used in the application. Example: "XML", "JS".
+
+        "async": true,  // Indicates whether views are loaded asynchronously. Example: true.
+
+        "viewPath": "project1.view",  // Base path where views are located. Example: "project1.view".
+
+        "controlAggregation": "pages",  // Aggregation control used for displaying views. Example: "pages".
+
+        "controlId": "app",  // ID of the main control used in views. Example: "app".
+
+        "clearControlAggregation": false  // Indicates whether to clear the aggregation control when navigating. Example: false.
+      },
+
+      "routes": [
+        {
+          "name": "home",  // Name of the route. Example: "home".
+
+          "pattern": "",  // URL pattern associated with the route. Example: "" (empty for the home page).
+
+          "target": "home"  // Target view to display when navigating to this route. Example: "home".
+        },
+        {
+          "name": "products",  // Name of the route. Example: "products".
+
+          "pattern": "products",  // URL pattern associated with the route. Example: "products".
+
+          "target": "products"  // Target view to display when navigating to this route. Example: "products".
+        },
+        {
+          "name": "productDetails",  // Name of the route. Example: "productDetails".
+
+          "pattern": "products/{productId}",  // URL pattern associated with the route, with a parameter. Example: "products/{productId}".
+
+          "target": "productDetails"  // Target view to display when navigating to this route. Example: "productDetails".
+        },
+        {
+          "name": "suppliers",  // Name of the route. Example: "suppliers".
+
+          "pattern": "suppliers",  // URL pattern associated with the route. Example: "suppliers".
+
+          "target": "suppliers"  // Target view to display when navigating to this route. Example: "suppliers".
+        },
+        {
+          "name": "reports",  // Name of the route. Example: "reports".
+
+          "pattern": "reports",  // URL pattern associated with the route. Example: "reports".
+
+          "target": "reports"  // Target view to display when navigating to this route. Example: "reports".
+        }
+      ],
+
+      "targets": {
+        "home": {
+          "viewType": "XML",  // Type of view to be displayed. Example: "XML", "JS".
+
+          "transition": "slide",  // Type of transition effect when navigating. Example: "slide", "fade".
+
+          "clearControlAggregation": false,  // Indicates whether to clear the aggregation control when displaying this view. Example: false.
+
+          "viewId": "home",  // ID of the view. Example: "home".
+
+          "viewName": "App"  // Name of the view. Example: "App".
+        },
+        "products": {
+          "viewType": "XML",  // Type of view to be displayed. Example: "XML", "JS".
+
+          "transition": "slide",  // Type of transition effect when navigating. Example: "slide", "fade".
+
+          "clearControlAggregation": false,  // Indicates whether to clear the aggregation control when displaying this view. Example: false.
+
+          "viewId": "products",  // ID of the view. Example: "products".
+
+          "viewName": "Products"  // Name of the view. Example: "Products".
+        },
+        "suppliers": {
+          "viewType": "XML",  // Type of view to be displayed. Example: "XML", "JS".
+
+          "transition": "slide",  // Type of transition effect when navigating. Example: "slide", "fade".
+
+          "clearControlAggregation": false,  // Indicates whether to clear the aggregation control when displaying this view. Example: false.
+
+          "viewId": "suppliers",  // ID of the view. Example: "suppliers".
+
+          "viewName": "Suppliers"  // Name of the view. Example: "Suppliers".
+        },
+        "reports": {
+          "viewType": "XML",  // Type of view to be displayed. Example: "XML", "JS".
+
+          "transition": "slide",  // Type of transition effect when navigating. Example: "slide", "fade".
+
+          "clearControlAggregation": false,  // Indicates whether to clear the aggregation control when displaying this view. Example: false.
+
+          "viewId": "reports",  // ID of the view. Example: "reports".
+
+          "viewName": "Reports"  // Name of the view. Example: "Reports".
+        },
+        "productDetails": {
+          "viewType": "XML",  // Type of view to be displayed. Example: "XML", "JS".
+
+          "transition": "flip",  // Type of transition effect when navigating. Example: "slide", "fade".
+
+          "clearControlAggregation": false,  // Indicates whether to clear the aggregation control when displaying this view. Example: false.
+
+          "viewId": "productDetails",  // ID of the view. Example: "productDetails".
+
+          "viewName": "ProductDetails"  // Name of the view. Example: "ProductDetails".
+        }
+      }
+    },
+
+    "rootView": {
+      "viewName": "project1.view.App",  // Name of the root view. Example: "myApp.view.Main".
+
+      "type": "XML",  // Type of view used for the root view. Example: "XML", "JS".
+
+      "async": true,  // Indicates whether the view is loaded asynchronously. Example: true.
+
+      "id": "app"  // ID of the root view. Example: "app".
+    }
+
+}
+}

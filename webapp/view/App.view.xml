@@ -1,0 +1,46 @@
+<mvc:View
+    controllerName="project1.controller.App"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m">
+    <!-- Our app will work like the model view and controller UI code for MVC -->
+    <App id="app" >
+        <Page title="{i18n>title}"
+              titleAlignment="Center"
+              enableScrolling="true">
+            <GenericTile
+                header="{i18n>Products}"
+                subheader="{i18n>ProductsSubheader}"
+                press="onNavToProducts"
+                class="sapUiSmallMarginBegin sapUiMediumMarginTop"
+                additionalTooltip="{i18n>ProductsTooltip}"
+                width="200px">
+                <TileContent >
+                    <ImageContent src="sap-icon://product" />
+                </TileContent>
+            </GenericTile>
+            
+            <GenericTile
+                header="{i18n>Suppliers}"
+                subheader="{i18n>SuppliersSubheader}"
+                press="onNavToSuppliers"
+                class="sapUiLargeMarginBegin sapUiMediumMarginTop"
+                additionalTooltip="{i18n>SuppliersTooltip}"
+                width="200px"
+               >
+                <TileContent>
+                    <ImageContent src="sap-icon://supplier" />
+                </TileContent>
+            </GenericTile>
+             <GenericTile
+                header="{i18n>Inventory}"
+                subheader="{i18n>InventorySubheader}"
+                press="onNavToInventory"
+                class="sapUiLargeMarginBegin sapUiMediumMarginTop"
+                width="200px">
+                <TileContent>
+                    <ImageContent src="sap-icon://inventory" />
+                </TileContent>
+            </GenericTile>
+        </Page>
+    </App>
+</mvc:View>
