@@ -42,6 +42,7 @@
         "sap.viz": {}
       }
     },
+    
     "contentDensities": {
       "compact": true,
       "cozy": true

@@ -148,7 +148,21 @@ sap.ui.define([
             oRouter.navTo("home"); // Adjust "homePage" to the actual route name for your homepage
         },
         onAddSupplier: function () {
-            let oView = this.getView();
+
+            this.byId("inputAddSupplierName").setValue("");
+            this.byId("inputAddContactName").setValue("");
+            this.byId("inputAddContactEmail").setValue("");
+            this.byId("inputAddContactPhone").setValue("");
+            this.byId("inputAddContactPhone").setValue("");
+            this.byId("inputAddProductId").setValue("");
+
+            this.byId("inputAddSupplierName").setValueState("None")
+            this.byId("inputAddContactName").setValueState("None")
+            this.byId("inputAddContactEmail").setValueState("None")
+            this.byId("inputAddContactPhone").setValueState("None")
+            this.byId("inputAddContactPhone").setValueState("None")
+            this.byId("inputAddProductId").setValueState("None")
+
             var oDialog = this.byId("addSupplierDialog");
 
             // Reset the input fields
@@ -193,6 +207,11 @@ sap.ui.define([
                 this.byId(sContactPhoneId).setValueStateText(formatter.validatePhoneNumber(sContactPhone)[1]); // Error message
                 check = false;
             }
+            if (!sProductId) {
+                this.byId(inputAddProductId).setValueState("Error");
+                this.byId(inputAddProductId).setValueStateText("Please enter the Product Id")
+                check = false
+            }
             if (sProductId) {
                 var bProductExists = false
                 var omodal = this.getOwnerComponent().getModel("productsModel");
@@ -202,7 +221,7 @@ sap.ui.define([
                 });
                 if (bProductExists == false) {
                     this.byId(inputAddProductId).setValueState("Error");
-                    this.byId(inputAddProductId).setValueStateText("This product doesnt exist, please add the product first")
+                    this.byId(inputAddProductId).setValueStateText("Please enter the right Product Id")
                     check = false
                 }
                 else {

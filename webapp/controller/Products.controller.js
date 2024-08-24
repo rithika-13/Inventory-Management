@@ -3,6 +3,7 @@ sap.ui.define([
     "sap/m/MessageToast",
     '../model/formatter',
     "sap/ui/core/UIComponent"
+
 ], function (
     Controller,
     MessageToast,
@@ -12,24 +13,16 @@ sap.ui.define([
     "use strict";
     return Controller.extend("project1.controller.Products", {
         formatter: formatter,//module/file formarter.js and also providing the funciton name formater so we can call this using dot notation
-
         onInit: function () {
             //this efers to the instance of the controller itself. and view associa
             //In SAPUI5, each view and controller typically belongs to a component. The getOwnerComponent() method 
             //returns the component instance that "owns" the current view(my case compponen.js where my route has been insialied then manifest json and etc). It is used to access the component-level resources and configurations.
             let oRouter = this.getOwnerComponent().getRouter();
             oRouter.attachRouteMatched(this.onRouteMatched, this);
-            //let oNavigationList = this.getView().byId("navigationList");
-            // oNavigationList.setSelectedKey("products");
-            // console.log("why", oNavigationList)
-            //this.getView().setModel(oProductsModel, "productsModel");
         },
         onRouteMatched: function (oEvent) {
             let oModel = this.getOwnerComponent().getModel("productsModel");
             oModel.setProperty("/Products", oModel.getProperty("/Products"))
-            // Set the model to the view (current controller's view)
-            this.getView().setModel(oModel, "productsModel");
-            console.log("here??", this.getOwnerComponent().getModel("productsModel"))
             let sRouteName = oEvent.getParameter("name");
             let oNavigationList = this.getView().byId("navigationList");
             // Set the selected key based on the route name
@@ -42,7 +35,7 @@ sap.ui.define([
             oToolPage.setSideExpanded(!bSideExpanded);
         },
         onNavSelect: function (oEvent) {
-            let oSelectedItem = oEvent.getParameter("item");
+            let oSelectedItem = oEvent.getParameter("item");//all para  of the event
             let sKey = oSelectedItem.getKey();
             let oRouters = UIComponent.getRouterFor(this);
             oRouters.navTo(sKey);
@@ -51,59 +44,8 @@ sap.ui.define([
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("home"); // Adjust "homePage" to the actual route name for your homepage
         },
-        onSearch: function (oEvent) {
-            let oTable = this.byId("productTable");
-            let oBinding = oTable.getBinding("items");
-            let sQuery = oEvent.getParameter("query");
-            let aFilters = [];
-            // Search Filters
-            if (sQuery && sQuery.length > 0) {
-                let sQueryLowerCase = sQuery.toLowerCase();
-                var oNameFilter = new sap.ui.model.Filter({
-                    path: "product_name",
-                    test: function (sValue) {
-                        return sValue.toLowerCase().indexOf(sQueryLowerCase) > -1;
-                    }
-                });
-                var oIdFilter = new sap.ui.model.Filter({
-                    path: "product_id",
-                    test: function (sValue) {
-                        return sValue.toString().toLowerCase().indexOf(sQueryLowerCase) > -1;
-                    }
-                });
-                var oQuantityFilter = new sap.ui.model.Filter({
-                    path: "quantity_in_stock",
-                    test: function (iValue) {
-                        return iValue.toString().indexOf(sQueryLowerCase) > -1;
-                    }
-                });
-                var oPriceFilter = new sap.ui.model.Filter({
-                    path: "price_per_unit",
-                    test: function (fValue) {
-                        return fValue.toString().indexOf(sQueryLowerCase) > -1;
-                    }
-                });
-                var oSearchFilter = new sap.ui.model.Filter({
-                    filters: [oNameFilter, oIdFilter, oQuantityFilter, oPriceFilter],
-                    and: false
-                });
-                aFilters.push(oSearchFilter);
-            }
-            // Apply the filters
-            this._applyCombinedFilters(aFilters);
-        },
-        onFilterChange: function (oEvent) {
-            let oComboBox = oEvent.getSource();
-            let sSelectedKey = oComboBox.getSelectedKey();
-            let aFilters = [];
-            if (sSelectedKey && sSelectedKey !== "All") {
-                var oCategoryFilter = new sap.ui.model.Filter("category", sap.ui.model.FilterOperator.Contains, sSelectedKey);
-                aFilters.push(oCategoryFilter);
-            }
-            // Apply the filters
-            this._applyCombinedFilters(aFilters);
-        },
-        _applyCombinedFilters: function (aFilters) {
+        onChange: function (oEvent) {
+            var aFilters = []
             let oTable = this.byId("productTable");
             let oBinding = oTable.getBinding("items");
             // Get any existing search filters applied
@@ -141,6 +83,13 @@ sap.ui.define([
                 });
                 aFilters.push(oSearchFilter);
             }
+            var oComboBox = this.byId("filterComboBox")
+            let sSelectedKey = oComboBox.getSelectedKey();
+
+            if (sSelectedKey) {
+                var oCategoryFilter = new sap.ui.model.Filter("category", sap.ui.model.FilterOperator.Contains, sSelectedKey);
+                aFilters.push(oCategoryFilter);
+            }
             // Combine all filters with AND logic
             if (aFilters.length > 0) {
                 var oCombinedFilter = new sap.ui.model.Filter({
@@ -152,24 +101,14 @@ sap.ui.define([
                 oBinding.filter([]); // Clear filters if none
             }
         },
-
         onSelectionChange: function (oEvent) {
             let aSelectedItems = oEvent.getSource().getSelectedItems();
-            // this.getView().getModel("productsModel").setProperty("/selectedProducts", aSelectedItems);
             this.byId("deleteSelectedButton").setEnabled(aSelectedItems.length > 0);
-            // this.byId("addSelectedButton").setVisible(aSelectedItems.length < 1)
-            this.byId("addSelectedButton").setEnabled(aSelectedItems.length < 1)
         },
         onDeleteSelectedProducts: function () {
             let that = this; // Store reference to `this`
             let oTable = this.byId("productTable");
             let aSelectedItems = oTable.getSelectedItems();
-
-            if (aSelectedItems.length === 0) {
-                MessageToast.show("No products selected for deletion");
-                return;
-            }
-
             // Create a confirmation dialog
             let oDialog = new sap.m.Dialog({
                 title: 'Confirm Deletion',
@@ -184,6 +123,7 @@ sap.ui.define([
 
                         // Remove selected items from the array
                         aSelectedItems.forEach(function (oItem) {
+                            //prodcuts/2-refers totnhe 3rs element
                             let iIndex = oItem.getBindingContext("productsModel").getPath().split("/").pop();
                             aProducts.splice(iIndex, 1);
                         });
@@ -213,22 +153,6 @@ sap.ui.define([
                 }
             });
 
-            // Open the dialog
-            oDialog.open();
-        },
-
-        onAddProduct: function () {
-            let oView = this.getView();
-            var oDialog = this.byId("addProductDialog");
-            oDialog.open();
-            this.byId("inputAddProductName").setValue("");
-            this.byId("comboAddCategory").setValue("");
-            this.byId("inputAddQuantity").setValue("");
-            this.byId("inputAddPrice").setValue("");
-            this.byId("inputAddProductName").setValueState("None")
-            this.byId("comboAddCategory").setValueState("None")
-            this.byId("inputAddQuantity").setValueState("None")
-            this.byId("inputAddPrice").setValueState("None")
             // Open the dialog
             oDialog.open();
         },
@@ -269,14 +193,28 @@ sap.ui.define([
             }
             return check;
         },
+        onAddProduct: function () {
+            let oView = this.getView();
+            var oDialog = this.byId("addProductDialog");
+            oDialog.open();
+            this.byId("inputAddProductName").setValue("");
+            this.byId("comboAddCategory").setValue("");
+            this.byId("inputAddQuantity").setValue("");
+            this.byId("inputAddPrice").setValue("");
+            this.byId("inputAddProductName").setValueState("None")
+            this.byId("comboAddCategory").setValueState("None")
+            this.byId("inputAddQuantity").setValueState("None")
+            this.byId("inputAddPrice").setValueState("None")
+            // Open the dialog
+            this.stockquantity("addProductDialog")
+            oDialog.open();
+        },
         onConfirmAddProduct: function () {
             // Get input values
             var sProductName = this.byId("inputAddProductName").getValue();
             var sCategory = this.byId("comboAddCategory").getValue();
             var iQuantity = this.byId("inputAddQuantity").getValue()
             var fPrice = this.byId("inputAddPrice").getValue()
-            //  console.log("chck", this.validate(sProductName, sCategory, iQuantity, fPrice))
-            // console.log(formatter.validateProductName(sProductName))
             if (this.validate(sProductName, sCategory, iQuantity, fPrice, "inputAddProductName", "comboAddCategory", "inputAddQuantity", "inputAddPrice")) {
                 // Create a new product object
                 var oNewProduct = {
@@ -286,6 +224,8 @@ sap.ui.define([
                     quantity_in_stock: iQuantity,
                     price_per_unit: fPrice
                 };
+                this.iOldQuantity = iQuantity
+                this.transaction(Date.now().toString())
                 // Add new product to the model
                 var oModel = this.getView().getModel("productsModel");
                 var aProducts = oModel.getProperty("/Products");
@@ -303,8 +243,36 @@ sap.ui.define([
             // Close the dialog
             this.byId("addProductDialog").close();
         },
+        stockquantity: function (id) {
+            var oDialog = this.byId(id);
+            var oProductsModel = this.getView().getModel("productsModel");
+            var sProductPath = oDialog.getBindingContext("productsModel").getPath();
+            var oProductData = oProductsModel.getProperty(sProductPath);
+            console.log("oContext", oProductData)
+            this.iOldQuantity = oProductData.quantity_in_stock
+        },
+        transaction: function (sProductId, iNewQuantity = 0) {
+            if (iNewQuantity == 0)
+                var sType = "IN"
+            else if (this.iOldQuantity > iNewQuantity)
+                var sType = "OUT"
+            else
+                var sType = "IN"
+            var oInventoryModel = this.getView().getModel("inventory");
+            var omod = this.getOwnerComponent().getModel("inventory");
+            var oNewTransaction = {
+                product_id: sProductId,
+                transaction_id: this._generateTransactionId(),
+                transaction_type: sType,
+                quantity: Math.abs(iNewQuantity - this.iOldQuantity),
+                transaction_date: formatter.formatDate(new Date())
+            };
+            // Add the new transaction to the model
+            omod.oData.InventoryTransactions.push(oNewTransaction);
+            oInventoryModel.setProperty("/Inventory", omod.oData.InventoryTransactions);
+
+        },
         onEditProduct: function (oEvent) {
-            let oView = this.getView();
             var oDialog = this.byId("editProductDialog");
             this.byId("inputEditProductName").setValueState("None")
             this.byId("comboAddCategoryEdit").setValueState("None")
@@ -319,13 +287,7 @@ sap.ui.define([
             oComboBox.setSelectedKey(sCategory);
             // Store original data to reset on cancel
             this._originalData = JSON.parse(JSON.stringify(oContext.getObject()));
-            var oProductsModel = this.getView().getModel("productsModel");
-            var sProductPath = oDialog.getBindingContext("productsModel").getPath();
-            var oProductData = oProductsModel.getProperty(sProductPath);
-            console.log("oContext", oProductData)
-            this.iOldQuantity = oProductData.quantity_in_stock
-            //  iOldQuantity = this.iOldQuantity;
-            // Open the dialog
+            this.stockquantity("editProductDialog")
             oDialog.open();
 
 
@@ -335,35 +297,14 @@ sap.ui.define([
             var oContext = oButton.getBindingContext("productsModel");
             var sProductId = oContext.getProperty("product_id");
             var oDialog = this.byId("editProductDialog");
-            var oInventoryModel = this.getView().getModel("inventory");
             var sProductName = this.byId("inputEditProductName").getValue();
             var sCategory = this.byId("comboAddCategoryEdit").getValue();
             var iNewQuantity = this.byId("inputEditQuantity").getValue();
             var fPricePerUnit = this.byId("inputEditPrice").getValue();
-
-            var omod = this.getOwnerComponent().getModel("inventory");
-            if (this.iOldQuantity > iNewQuantity)
-                var sType = "OUT"
-            else
-                var sType = "IN"
             //oDialog.close();
             if (this.validate(sProductName, sCategory, iNewQuantity, fPricePerUnit, "inputEditProductName", "comboAddCategoryEdit", "inputEditQuantity", "inputEditPrice")) {
                 // Create a new transaction entry
-                var oNewTransaction = {
-                    product_id: sProductId,
-                    transaction_id: this._generateTransactionId(),
-                    transaction_type: sType,
-                    quantity: Math.abs(iNewQuantity - this.iOldQuantity),
-                    transaction_date: formatter.formatDate(new Date())
-                };
-                // Add the new transaction to the model
-                omod.oData.InventoryTransactions.push(oNewTransaction);
-                oInventoryModel.setProperty("/Inventory", omod.oData.InventoryTransactions);
-                console.log("2nd", omod.oData.InventoryTransactions, oInventoryModel)
-                // aTransactions.push(oNewTransaction);
-                // oTransactionsModel.setProperty("/Inventory", aTransactions);
-
-                // Show a success message
+                this.transaction(sProductId, iNewQuantity)
                 oDialog.close();
                 sap.m.MessageToast.show("Product updated successfully!");
             }

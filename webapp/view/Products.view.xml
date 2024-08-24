@@ -26,9 +26,9 @@
                     <customHeader>                               
                     	<OverflowToolbar>
 
-                         <SearchField id="searchField" search=".onSearch" width="auto" placeholder="{i18n>searchFieldPlaceholder}"/>
+                         <SearchField id="searchField" search=".onChange" width="auto" placeholder="{i18n>searchFieldPlaceholder}"/>
                                             <Label text="{i18n>filterLabel}" labelFor="filterComboBox" />
-                                            <ComboBox id="filterComboBox" change=".onFilterChange" width="200px" showClearIcon="true"  > 
+                                            <ComboBox id="filterComboBox" change=".onChange" width="200px" showClearIcon="true"  > 
                                                 <core:Item key="ERP Software" text="{i18n>filterCategory1}"/>
                                                 <core:Item key="Cloud Platform" text="{i18n>filterCategory2}"/>
                                             </ComboBox>
