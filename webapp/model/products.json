@@ -1,4 +1,14 @@
 {
+    "Categories": [
+    {
+      "key": "ERP Software",
+      "text": "ERP Software"
+    },
+    {
+      "key": "Cloud Platform",
+      "text": "Cloud Platform"
+    }
+  ],
     "Products": [
         {
             "product_id": "P001",

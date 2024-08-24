@@ -1,15 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Label",
-    "sap/m/Input",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     '../model/formatter',
 
-], function (Controller, MessageToast, Dialog, Button, Label, Input, Filter, FilterOperator, formatter) {
+], function (Controller, MessageToast, Filter, FilterOperator, formatter) {
     "use strict";
 
     return Controller.extend("project1.controller.Suppliers", {
@@ -221,7 +217,7 @@ sap.ui.define([
                 });
                 if (bProductExists == false) {
                     this.byId(inputAddProductId).setValueState("Error");
-                    this.byId(inputAddProductId).setValueStateText("Please enter the right Product Id")
+                    this.byId(inputAddProductId).setValueStateText("Please enter the valid Product Id")
                     check = false
                 }
                 else {
@@ -249,7 +245,7 @@ sap.ui.define([
                     contact_name: sContactName,
                     contact_email: sContactEmail,
                     contact_phone: sContactPhone,
-                    product_id: sProductId
+                    product_ids: sProductId
                 };
 
                 // Add new supplier to the model

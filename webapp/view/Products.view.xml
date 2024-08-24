@@ -27,10 +27,10 @@
                     	<OverflowToolbar>
 
                          <SearchField id="searchField" search=".onChange" width="auto" placeholder="{i18n>searchFieldPlaceholder}"/>
-                                            <Label text="{i18n>filterLabel}" labelFor="filterComboBox" />
-                                            <ComboBox id="filterComboBox" change=".onChange" width="200px" showClearIcon="true"  > 
-                                                <core:Item key="ERP Software" text="{i18n>filterCategory1}"/>
-                                                <core:Item key="Cloud Platform" text="{i18n>filterCategory2}"/>
+                                            <Label text="{i18n>filterLabel}" labelFor="filterComboBox"  />
+                                            <ComboBox id="filterComboBox" change=".onChange" width="200px" showClearIcon="true"  items="{productsModel>/Categories}"> 
+                                                <core:Item key="{productsModel>key}" text="{productsModel>text}"/>
+                                                
                                             </ComboBox>
 			</OverflowToolbar>
                             
@@ -104,9 +104,9 @@
             <Input id="inputAddProductName"   />
 
             <Label text="Category" labelFor="comboAddCategory"/>
-            <ComboBox id="comboAddCategory" width="100%">
-                <core:Item key="ERP Software" text="ERP Software"/>
-                <core:Item key="Cloud Platform" text="Cloud Platform"/>
+            <ComboBox id="comboAddCategory" width="100%" items="{productsModel>/Categories}">
+             <core:Item key="{productsModel>key}" text="{productsModel>text}"/>
+              
             </ComboBox>
 
             <Label text="Quantity in Stock" labelFor="inputAddQuantity"/>
@@ -135,9 +135,11 @@
                 <Input id="inputEditProductName" value="{productsModel>product_name}" />
 
                   <Label text="Category" labelFor="comboAddCategory"/>
-            <ComboBox id="comboAddCategoryEdit" width="100%">
-                <core:Item key="ERP Software" text="ERP Software"/>
-                <core:Item key="Cloud Platform" text="Cloud Platform"/>
+            
+            <ComboBox id="comboAddCategoryEdit" width="100%" items="{productsModel>/Categories}">
+             <core:Item key="{productsModel>key}" text="{productsModel>text}"/>
+              
+                
             </ComboBox>
 
                 <Label text="Quantity in Stock" />
