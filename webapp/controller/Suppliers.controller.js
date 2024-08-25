@@ -58,9 +58,7 @@ sap.ui.define([
                 // Clear the filter if no search query is present
                 oBinding.filter([]);
             }
-        }
-        ,
-
+        },
         onFilterChange: function (oEvent) {
             var oComboBox = oEvent.getSource();
             var oTable = this.byId("supplierTable");
@@ -74,13 +72,11 @@ sap.ui.define([
 
             oBinding.filter(oFilter);
         },
-
         onSelectionChange: function (oEvent) {
             let aSelectedItems = oEvent.getSource().getSelectedItems();
             this.byId("deleteSelectedButton").setEnabled(aSelectedItems.length > 0);
             //  this.byId("addSelectedSupplierButton").setEnabled(aSelectedItems.length < 1);
         },
-
         onDeleteSelectedSuppliers: function () {
             var that = this; // Store reference to `this`
             var oTable = this.byId("supplierTable");
@@ -136,9 +132,7 @@ sap.ui.define([
 
             // Open the dialog
             oDialog.open();
-        }
-        ,
-
+        },
         onNavBack: function () {
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("home"); // Adjust "homePage" to the actual route name for your homepage
@@ -264,7 +258,6 @@ sap.ui.define([
             // Close the dialog
             this.byId("addSupplierDialog").close();
         },
-
         onEditSupplier: function (oEvent) {
 
             // var oButton = oEvent.getSource();
@@ -300,7 +293,6 @@ sap.ui.define([
             oDialog.open();
 
         },
-
         onSaveEditSupplier: function (oEvent) {
             var oView = this.getView();
             var oButton = oEvent.getSource();
@@ -344,15 +336,10 @@ sap.ui.define([
                 sap.m.MessageToast.show("Supplier details updated successfully.");
             }
         },
-
-
-
-
         onCancelEditSupplier: function () {
             // Close the dialog without making any changes
             this.byId("editSupplierDialog").close();
         },
-
         onMoreDetails: function (oEvent) {
             var oButton = oEvent.getSource();
             var oContext = oButton.getBindingContext("suppliersModel");
