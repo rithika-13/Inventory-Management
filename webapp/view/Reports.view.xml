@@ -73,11 +73,14 @@
                                                     values="Category"/>
                                             </viz:feeds>
                                         </viz:VizFrame>
-                                        <VBox class="alignRightabove" > <Title text="Stock value" /></VBox>
-                                     <VBox id="box" class="alignRight" visible="false" >
-                                    
-                <Text id="value" text="hi" visible="false" />
-            </VBox>
+                                    <VBox class="alignRightabove" > <Title id="circletext" text="Stock value" visible="false" /></VBox>
+                                     <VBox id="circle" class="alignRight" visible="false" >
+                                        <Text id="valuecircle" />
+                                    </VBox>
+                                    <VBox class="alignRightaboverect" > <Title  id="recttext" text="Most sold" visible="false"/></VBox>
+                                    <VBox id="rect" class="alignRightrect" visible="false" >
+                                        <Text id="rectvalue"   />
+                                    </VBox>
                                     </VBox>
                                     
                                 </f:content>
