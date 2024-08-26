@@ -32,3 +32,25 @@
 .contentRight {
     overflow: auto;
 }
+.alignRight {
+    position: absolute;
+    right: 20%; /* Distance from the right edge */
+    top: 50%; /* Distance from the top edge */
+    z-index: 10; 
+    /* Circle Properties */
+    width: 70px; /* Set a fixed width */
+    height: 70px; /* Set the same height to make it a circle */
+    background-color: #3498db; /* Background color for the circle */
+    border-radius: 50%; /* Make it a circle */
+    display: flex; /* Center the content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: white; /* Text color inside the circle */
+    font-weight: bold; /* Bold text */
+}
+.alignRightabove {
+    position: absolute;
+    right: 19%; /* Distance from the right edge */
+    top: 45%; /* Distance from the top edge */
+    z-index: 10; 
+}

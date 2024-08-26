@@ -13,7 +13,7 @@
         {
             "product_id": "P001",
             "product_name": "SAP S/4HANA",
-            "category": "ERP Software",
+            "category": "Cloud Platform",
             "quantity_in_stock": 10,
             "price_per_unit": 12000,
             "supplier_ids": ["S001", "S002"],  
