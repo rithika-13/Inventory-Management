@@ -225,7 +225,7 @@ sap.ui.define([
                     price_per_unit: fPrice
                 };
                 this.iOldQuantity = iQuantity
-                this.transaction(Date.now().toString())
+                this.transaction(Date.now().toString(), 0, sCategory, sProductName, fPrice)
                 // Add new product to the model
                 var oModel = this.getView().getModel("productsModel");
                 var aProducts = oModel.getProperty("/Products");
@@ -251,7 +251,8 @@ sap.ui.define([
             console.log("oContext", oProductData)
             this.iOldQuantity = oProductData.quantity_in_stock
         },
-        transaction: function (sProductId, iNewQuantity = 0) {
+        transaction: function (sProductId, iNewQuantity = 0, sCategory, sProductName, fPrice) {
+
             if (iNewQuantity == 0)
                 var sType = "IN"
             else if (this.iOldQuantity > iNewQuantity)
@@ -265,7 +266,11 @@ sap.ui.define([
                 transaction_id: this._generateTransactionId(),
                 transaction_type: sType,
                 quantity: Math.abs(iNewQuantity - this.iOldQuantity),
-                transaction_date: formatter.formatDate(new Date())
+                transaction_date: formatter.formatDate(new Date()),
+                category: sCategory,
+                product_name: sProductName,
+                price_per_unit: fPrice
+
             };
             // Add the new transaction to the model
             omod.oData.InventoryTransactions.push(oNewTransaction);
@@ -304,7 +309,7 @@ sap.ui.define([
             //oDialog.close();
             if (this.validate(sProductName, sCategory, iNewQuantity, fPricePerUnit, "inputEditProductName", "comboAddCategoryEdit", "inputEditQuantity", "inputEditPrice")) {
                 // Create a new transaction entry
-                this.transaction(sProductId, iNewQuantity)
+                this.transaction(sProductId, iNewQuantity, sCategory, sProductName,)
                 oDialog.close();
                 sap.m.MessageToast.show("Product updated successfully!");
             }

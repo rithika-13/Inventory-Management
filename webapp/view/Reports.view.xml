@@ -7,7 +7,8 @@
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:viz.data="sap.viz.ui5.data"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
-    xmlns:f="sap.f">
+    xmlns:f="sap.f"
+    xmlns:uxap="sap.uxap">
 
     <tnt:ToolPage id="reports">
         <tnt:header>
@@ -28,180 +29,194 @@
         </tnt:sideContent>
         
         <tnt:mainContents>
-            <App id="mainContents">
-                <Page title="Product Stock Report">
-                    <content>
-                        <!-- Container for the Cards -->
-                        <VBox>
-                            <!-- Bar Chart Card -->
-                            
-                            <!-- Pie Chart Card -->
-                            <f:Card width="100%">
-                                <f:content>
-                                    <VBox width="100%">
-                                        <Title text="" />
-                                        <viz:VizFrame
-                                            id="idPieChart"
-                                            uiConfig="{applicationSet:'fiori'}"
-                                            vizType="pie"
-                                            width="100%"
-                                            height="400px"
-                                            selectData="onPieChartSelect">
-                                            <viz:dataset>
-                                                <viz.data:FlattenedDataset
-                                                    data="{pieChartModel>/Categories}">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition
-                                                            name="Category"
-                                                            value="{pieChartModel>category}"/>
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Count"
-                                                            value="{pieChartModel>count}"/>
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    uid="size"
-                                                    type="Measure"
-                                                    values="Count"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="color"
-                                                    type="Dimension"
-                                                    values="Category"/>
-                                            </viz:feeds>
-                                        </viz:VizFrame>
-                                    <VBox class="alignRightabove" > <Title id="circletext" text="Stock value" visible="false" /></VBox>
-                                     <VBox id="circle" class="alignRight" visible="false" >
-                                        <Text id="valuecircle" />
-                                    </VBox>
-                                    <VBox class="alignRightaboverect" > <Title  id="recttext" text="Most sold" visible="false"/></VBox>
-                                    <VBox id="rect" class="alignRightrect" visible="false" >
-                                        <Text id="rectvalue"   />
-                                    </VBox>
-                                    </VBox>
+            
+                <uxap:ObjectPageLayout
+                    id="objectPageLayout"
+                    headerTitle="Reports"
+                    headerContent="{
+                        type: 'sap.m.ObjectHeader',
+                        title: 'Object Page Title',
+                        number: '12345',
+                        numberUnit: 'Units',
+                        intro: 'Description of the object',
+                        backgroundDesign: 'Transparent'
+                    }">
+
+                    <!-- ObjectPageSection for Charts -->
+                    <uxap:ObjectPageSection title="Charts">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
                                     
-                                </f:content>
-                            </f:Card>
+                                    
+                                    <VBox class="alignRightabove">
+                                    <Title id="circletext" text="Total Stock " visible="false" />
+                                </VBox>
+                                <VBox id="circle" class="alignRight" visible="false">
+                                    <Text id="valuecircle" />
+                                </VBox>
+                                <VBox class="alignRightaboverect">
+                                    <Title id="recttext" text="Most sold" visible="false"/>
+                                </VBox>
+                                <VBox id="rect" class="alignRightrect" visible="false">
+                                    <Text id="rectvalue" />
+                                </VBox>
+                                <VBox class="alignLeftaboverect">
+                                    <Title id="recttextLeft" text="Most rated" visible="false"/>
+                                </VBox>
+                                <VBox id="rectLeft" class="alignLeftrect" visible="false">
+                                    <Text id="rectvalueLeft" />
+                                </VBox>
+                                <VBox class="alignLeftabovecircle">
+                                    <Title id="circletextLeft" text="Most revenue generated" visible="false"/>
+                                </VBox>
+                                <VBox id="circleLeft" class="alignLeftcircle" visible="false">
+                                    <Text id="circlevalueLeft" />
+                                </VBox>
                             
-                            <!-- Scatter Plot Card -->
-                            <f:Card width="100%">
-                                <f:content>
-                                    <VBox>
-                                        <Title text="Product Quantity vs Price" />
-                                        <viz:VizFrame
-                                            id="idScatterPlot"
-                                            uiConfig="{applicationSet:'fiori'}"
-                                            vizType="scatter"
-                                            width="100%"
-                                            height="400px">
-                                            <viz:dataset>
-                                                <viz.data:FlattenedDataset
-                                                    data="{productsModel>/Products}">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition
-                                                            name="Product"
-                                                            value="{productsModel>product_name}"/>
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Quantity"
-                                                            value="{productsModel>quantity_in_stock}"/>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Price"
-                                                            value="{productsModel>price_per_unit}"/>
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Quantity"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis2"
-                                                    type="Measure"
-                                                    values="Price"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="color"
-                                                    type="Dimension"
-                                                    values="Product"/>
-                                            </viz:feeds>
-                                        </viz:VizFrame>
-                                    </VBox>
-                                </f:content>
-                            </f:Card>
-                            
-                            <!-- Stacked Bar Chart Card -->
-                            
-                            
-                            <!-- Bubble Chart Card -->
-                            <f:Card width="100%">
-                                <f:content>
-                                    <VBox>
-                                        <Title text="Price vs Quantity Bubble Chart" />
-                                        <viz:VizFrame
-                                            id="idBubbleChart"
-                                           
-                                            vizType="bubble"
-                                            width="100%"
-                                            height="400px" vizProperties="{
-        'title': {
-            'visible': false
-        }
-    }">
-                                            <viz:dataset >
-                                                <viz.data:FlattenedDataset
-                                                    data="{productsModel>/Products}">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition
-                                                            name="Product"
-                                                            value="{productsModel>product_name}"/>
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Price"
-                                                            value="{productsModel>price_per_unit}"/>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Quantity"
-                                                            value="{productsModel>quantity_in_stock}"/>
-                                                        <viz.data:MeasureDefinition
-                                                            name="BubbleSize"
-                                                            value="{productsModel>quantity_in_stock}"/>
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Quantity"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="valueAxis2"
-                                                    type="Measure"
-                                                    values="Price"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="bubbleWidth"
-                                                    type="Measure"
-                                                    values="BubbleSize"/>
-                                                <viz.feeds:FeedItem
-                                                    uid="color"
-                                                    type="Dimension"
-                                                    values="Product"/>
-                                            </viz:feeds>
-                                        </viz:VizFrame>
-                                    </VBox>
-                                </f:content>
-                            </f:Card>
-                            
-                            <!-- Column Chart Card -->
-                            
-                        </VBox>
-                    </content>
-                </Page>
-            </App>
+                                        <!-- Pie Chart Card -->
+                                        <f:Card id="chart" width="100%">
+                                            <f:content>
+                                                <VBox width="100%">
+                                                    <Title text="Categorical Analysis" class="centeredTitle" />
+                                                    <viz:VizFrame
+                                                        id="idPieChart"
+                                                        uiConfig="{applicationSet:'fiori'}"
+                                                        vizType="pie"
+                                                       width="100%"
+                                                        height="400px"
+                                                        selectData="onPieChartSelect"
+                                                        vizProperties="{
+                                                            plotArea: {
+                                                                colorPalette: ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6', '#f1c40f']
+                                                            }
+                                                        }">
+                                                        <viz:dataset>
+                                                            <viz.data:FlattenedDataset
+                                                                data="{pieChartModel>/Categories}">
+                                                                <viz.data:dimensions>
+                                                                    <viz.data:DimensionDefinition
+                                                                        name="Category"
+                                                                        value="{pieChartModel>category}"/>
+                                                                </viz.data:dimensions>
+                                                                <viz.data:measures>
+                                                                    <viz.data:MeasureDefinition
+                                                                        name="Count"
+                                                                        value="{pieChartModel>count}"/>
+                                                                </viz.data:measures>
+                                                            </viz.data:FlattenedDataset>
+                                                        </viz:dataset>
+                                                        <viz:feeds>
+                                                            <viz.feeds:FeedItem
+                                                                uid="size"
+                                                                type="Measure"
+                                                                values="Count"/>
+                                                            <viz.feeds:FeedItem
+                                                                uid="color"
+                                                                type="Dimension"
+                                                                values="Category"/>
+                                                        </viz:feeds>
+                                                    </viz:VizFrame>
+                                                </VBox>
+                                                
+                                            </f:content>
+                                            
+                                        </f:Card>
+
+                                        <!-- Bubble Chart Card -->
+                                        
+                                  
+                                </uxap:blocks>
+                                
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- ObjectPageSection for Additional Information -->
+                    <uxap:ObjectPageSection title="Additional Information">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                
+                                <f:Card width="100%">
+                                            <f:content>
+                                                <VBox width="100%">
+                                                    <Title text="Price vs Quantity Bubble Chart" class="centeredTitle" />
+                                                    <viz:VizFrame
+                                                        id="idBubbleChart"
+                                                        vizType="bubble"
+                                                        width="100%"
+                                                        height="400px"
+                                                        vizProperties="{
+                                                            'title': {
+                                                                'visible': false
+                                                            }
+                                                        }">
+                                                        <viz:dataset>
+                                                            <viz.data:FlattenedDataset
+                                                                data="{productsModel>/Products}">
+                                                                <viz.data:dimensions>
+                                                                    <viz.data:DimensionDefinition
+                                                                        name="Product"
+                                                                        value="{productsModel>product_name}"/>
+                                                                </viz.data:dimensions>
+                                                                <viz.data:measures>
+                                                                    <viz.data:MeasureDefinition
+                                                                        name="Price"
+                                                                        value="{productsModel>price_per_unit}"/>
+                                                                    <viz.data:MeasureDefinition
+                                                                        name="Quantity"
+                                                                        value="{productsModel>quantity_in_stock}"/>
+                                                                    <viz.data:MeasureDefinition
+                                                                        name="BubbleSize"
+                                                                        value="{productsModel>quantity_in_stock}"/>
+                                                                </viz.data:measures>
+                                                            </viz.data:FlattenedDataset>
+                                                        </viz:dataset>
+                                                        <viz:feeds>
+                                                            <viz.feeds:FeedItem
+                                                                uid="valueAxis"
+                                                                type="Measure"
+                                                                values="Quantity"/>
+                                                            <viz.feeds:FeedItem
+                                                                uid="valueAxis2"
+                                                                type="Measure"
+                                                                values="Price"/>
+                                                            <viz.feeds:FeedItem
+                                                                uid="bubbleWidth"
+                                                                type="Measure"
+                                                                values="BubbleSize"/>
+                                                            <viz.feeds:FeedItem
+                                                                uid="color"
+                                                                type="Dimension"
+                                                                values="Product"/>
+                                                        </viz:feeds>
+                                                    </viz:VizFrame>
+                                                </VBox>
+                                            </f:content>
+                                        </f:Card>
+                                    <f:Card width="auto" height="425px">
+                                        <f:content>
+                                            <VBox width="100%">
+                                                <Title text="Other Information" class="centeredTitle" />
+                                                <List>
+                                                    <StandardListItem title="Item 1" description="Description of Item 1"/>
+                                                    <StandardListItem title="Item 2" description="Description of Item 2"/>
+                                                    <StandardListItem title="Item 3" description="Description of Item 3"/>
+                                                    <!-- Add more items as needed -->
+                                                </List>
+                                            </VBox>
+                                        </f:content>
+                                    </f:Card>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                    
+                </uxap:ObjectPageLayout>
+           
         </tnt:mainContents>
+        
     </tnt:ToolPage>
+    
 </mvc:View>

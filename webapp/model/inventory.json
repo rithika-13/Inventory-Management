@@ -3,72 +3,102 @@
         {
             "transaction_id": "T001",
             "product_id": "P001",
+            "product_name": "SAP S/4HANA",
             "transaction_type": "IN",
             "quantity": 100,
-            "transaction_date": "01-8-2024"
+            "transaction_date": "01-8-2024",
+            "category": "Cloud Platform",
+            "price_per_unit": 12000
         },
         {
             "transaction_id": "T002",
             "product_id": "P002",
+            "product_name": "SAP  BTP",
             "transaction_type": "OUT",
             "quantity": 20,
-            "transaction_date": "02-8-2024"
+            "transaction_date": "02-8-2024",
+            "category": "Cloud Platform",
+            "price_per_unit": 15000
         },
         {
             "transaction_id": "T003",
             "product_id": "P003",
+            "product_name": "SAP SuccessFactors",
             "transaction_type": "IN",
             "quantity": 150,
-            "transaction_date": "03-8-2024"
+            "transaction_date": "03-8-2024",
+            "category": "ERP Software",
+            "price_per_unit": 8000
         },
         {
             "transaction_id": "T004",
             "product_id": "P004",
+            "product_name": "SAP HANA Cloud",
             "transaction_type": "OUT",
             "quantity": 50,
-            "transaction_date": "04-8-2024"
+            "transaction_date": "04-8-2024",
+             "category": "Cloud Platform",
+             "price_per_unit": 18000
         },
         {
             "transaction_id": "T005",
             "product_id": "P005",
+            "product_name": "SAP Ariba",
             "transaction_type": "IN",
             "quantity": 200,
-            "transaction_date": "05-8-2024"
+            "transaction_date": "05-8-2024",
+             "category": "ERP Software",
+             "price_per_unit": 9000
         },
         {
             "transaction_id": "T006",
             "product_id": "P006",
+            "product_name": "SAP CPI",
             "transaction_type": "OUT",
             "quantity": 30,
-            "transaction_date": "06-8-2024"
+            "transaction_date": "06-8-2024",
+            "category": "Cloud Platform",
+            "price_per_unit": 16000
         },
         {
             "transaction_id": "T007",
             "product_id": "P007",
+            "product_name": "SAP Analytics Cloud",
             "transaction_type": "IN",
             "quantity": 120,
-            "transaction_date": "07-8-2024"
+            "transaction_date": "07-8-2024",
+             "category": "ERP Software",
+             "price_per_unit": 14000
         },
         {
             "transaction_id": "T008",
             "product_id": "P008",
+            "product_name": "SAP Fiori",
             "transaction_type": "OUT",
             "quantity": 80,
-            "transaction_date": "08-8-2024"
+            "transaction_date": "08-8-2024",
+             "category": "ERP Software",
+             "price_per_unit": 7000
         },
         {
             "transaction_id": "T009",
             "product_id": "P009",
+            "product_name": "SAP Integrated Business Planning",
             "transaction_type": "IN",
             "quantity": 90,
-            "transaction_date": "09-8-2024"
+            "transaction_date": "09-8-2024",
+             "category": "ERP Software",
+             "price_per_unit": 11000
         },
         {
             "transaction_id": "T010",
             "product_id": "P010",
+            "product_name": "SAP Data Intelligence",
             "transaction_type": "OUT",
             "quantity": 60,
-            "transaction_date": "10-8-2024"
+            "transaction_date": "10-8-2024",
+             "category": "ERP Software",
+             "price_per_unit": 13000
         }
     ]
 }

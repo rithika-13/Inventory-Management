@@ -1,11 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/core/UIComponent"
-], function (Controller, JSONModel, UIComponent) {
+    "sap/ui/core/UIComponent",
+    '../model/formatter',
+
+], function (Controller, JSONModel, UIComponent, formatter) {
     "use strict";
 
     return Controller.extend("project1.controller.Reports", {
+        formatter: formatter,
         onInit: function () {
 
             var oRouter = this.getOwnerComponent().getRouter();
@@ -21,11 +24,22 @@ sap.ui.define([
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.attachRouteMatched(this.onRouteMatched, this);
             var oVizFrame = this.byId("idPieChart");
+            //var oVizFrame = this.byId("idPieChart");
 
+            // Get the vizProperties
+            var vizProperties = oVizFrame.getVizProperties();
+
+            // You need to access the properties related to colors
+            //var colorProperties = vizProperties.legend.items;
+
+            // Log the color properties to the console
+            console.log("check", vizProperties);
             // Set the VizFrame properties
             oVizFrame.setVizProperties({
                 title: {
+
                     visible: false
+
                 },
                 tooltip: {
                     visible: true,
@@ -92,45 +106,11 @@ sap.ui.define([
 
         },
 
-        findMostPurchasedProduct: function (transactions) {
-            // Create an object to store total purchased quantities for each product
-            const productPurchaseMap = {};
-
-            // Loop through each transaction
-            transactions.forEach((transaction) => {
-                // Only consider 'IN' (purchased) transactions
-                if (transaction.transaction_type === "IN") {
-                    const productId = transaction.product_id;
-                    const quantity = transaction.quantity;
-
-                    // Sum up the quantity for each product
-                    if (productPurchaseMap[productId]) {
-                        productPurchaseMap[productId] += quantity;
-                    } else {
-                        productPurchaseMap[productId] = quantity;
-                    }
-                }
-            });
-
-            // Find the product with the highest purchased quantity
-            let mostPurchasedProduct = null;
-            let maxQuantity = 0;
-
-            // Loop through the productPurchaseMap to find the product with the highest quantity
-            for (const productId in productPurchaseMap) {
-                if (productPurchaseMap[productId] > maxQuantity) {
-                    maxQuantity = productPurchaseMap[productId];
-                    mostPurchasedProduct = productId;
-                }
-            }
-
-            return { mostPurchasedProduct, maxQuantity }
-        },
         onPieChartSelect: function (oEvent) {
 
             var oData = oEvent.getParameter("data");
             console.log(oData[0].data.Category)
-
+            this.byId("chart").setWidth("100%")
             var oCircletext = this.byId("circletext")
             oCircletext.setVisible(true)
             var oCircle = this.byId("circle")
@@ -143,6 +123,12 @@ sap.ui.define([
             var orect = this.byId("rect")
             orect.setVisible(true)
             var otextrect = this.byId("rectvalue")
+
+            var orecttextleft = this.byId("circletextLeft")
+            orecttextleft.setVisible(true)
+            var orectleft = this.byId("circleLeft")
+            orectleft.setVisible(true)
+            var otextrectleft = this.byId("circlevalueLeft")
 
 
             var oProductsModel = this.getOwnerComponent().getModel("productsModel");
@@ -157,21 +143,51 @@ sap.ui.define([
             // Loop through each transaction
             transactions.forEach((transaction) => {
                 // Only consider 'IN' (purchased) transactions
-                if (transaction.transaction_type === "OUT") {
-                    const productId = transaction.product_id;
+                if (transaction.transaction_type === "OUT" && transaction.category == oData[0].data.Category) {
+                    const productId = transaction.product_name;
                     const quantity = transaction.quantity;
-
+                    productPurchaseMap[productId] = []
                     // Sum up the quantity for each product
-                    if (productPurchaseMap[productId]) {
-                        productPurchaseMap[productId] += parseInt(quantity);
-                    } else {
-                        productPurchaseMap[productId] = parseInt(quantity);
+                    if (!productPurchaseMap[productId]) {
+                        productPurchaseMap[productId] = [];
                     }
+                    if (productPurchaseMap[productId][0]) {
+                        productPurchaseMap[productId][0] += parseInt(quantity);
+                    } else {
+                        productPurchaseMap[productId][0] = parseInt(quantity);
+                    }
+                    productPurchaseMap[productId][1] = parseInt(transaction.price_per_unit);
                 }
             });
-            const maxValue = Math.max(...Object.values(productPurchaseMap));
 
-            console.log("Max Value:", maxValue);
+            // const maxValue = Math.max(...Object.values(productPurchaseMap));
+            const maxKey = Object.keys(productPurchaseMap).reduce((a, b) =>
+                productPurchaseMap[a][0] > productPurchaseMap[b][0] ? a : b
+            );
+            let maxProduct = -Infinity; // Initialize with a very low value
+            let prod = ""
+            // Iterate over each key-value pair in the dictionary
+            for (let key in productPurchaseMap) {
+                let values = productPurchaseMap[key];
+
+                // Ensure there are exactly two values in the array
+
+                let product = values[0] * values[1]; // Multiply the two values
+
+                // Update maxProduct if the current product is greater
+                if (product > maxProduct) {
+                    maxProduct = product;
+                    prod = key
+                }
+
+            }
+            console.log(maxProduct, prod)
+
+            const maxValue = productPurchaseMap[maxKey][0];
+
+
+
+
             var oCategoryStockLevels = {};
 
             aProducts.forEach(function (product) {
@@ -187,7 +203,8 @@ sap.ui.define([
                 oCategoryStockLevels[sCategory] += parseInt(iStockLevel);;
             });
             otext.setText(oCategoryStockLevels[oData[0].data.Category])
-            otextrect.setText(maxValue)
+            otextrect.setText(maxKey + ": " + maxValue);
+            otextrectleft.setText(prod + ":  " + formatter.formatCurrency(maxProduct));
             // Now, oCategoryStockLevels contains the total stock level for each category
             console.log(oCategoryStockLevels[oData[0].data.Category]);
 

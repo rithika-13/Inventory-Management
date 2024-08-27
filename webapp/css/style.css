@@ -32,10 +32,14 @@
 .contentRight {
     overflow: auto;
 }
+.centeredTitle {
+    text-align: center;
+    width: 100%;
+}
 .alignRight {
     position: absolute;
     right: 20%; /* Distance from the right edge */
-    top: 55%; /* Distance from the top edge */
+    top: 70%; /* Distance from the top edge */
     z-index: 10; 
     /* Circle Properties */
     width: 70px; /* Set a fixed width */
@@ -51,7 +55,7 @@
 .alignRightabove {
     position: absolute;
     right: 19%; /* Distance from the right edge */
-    top: 50%; /* Distance from the top edge */
+    top: 65%; /* Distance from the top edge */
     z-index: 10; 
 }
 .alignRightrect{
@@ -77,5 +81,58 @@
     position: absolute;
     right: 19.5%; /* Distance from the right edge */
     top: 20%; /* Distance from the top edge */
+    z-index: 10; 
+}
+
+
+.alignLeftrect{
+    position: absolute;
+    right: 77.5%;
+    top: 25%;
+    
+    z-index: 10;
+    width: 150px;  /* Adjust as needed */
+    height: 70px;  /* Adjust as needed */
+    background-color: #dbe6ef;
+    border-radius: 12px;  /* Rounded corners */
+  
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+   
+}
+.alignLeftaboverect{
+    position: absolute;
+    right: 81%; /* Distance from the right edge */
+    top: 20%; /* Distance from the top edge */
+    z-index: 10; 
+}
+
+.alignLeftcircle{
+    position: absolute;
+    right: 77.5%;
+    top: 50%;
+    
+    z-index: 10;
+    width: 150px;  /* Adjust as needed */
+    height: 70px;  /* Adjust as needed */
+    background-color: #dbe6ef;
+    border-radius: 12px;  /* Rounded corners */
+  
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+   
+}
+.alignLeftabovecircle{
+    position: absolute;
+    right: 76.5%; /* Distance from the right edge */
+    top: 45%; /* Distance from the top edge */
     z-index: 10; 
 }
