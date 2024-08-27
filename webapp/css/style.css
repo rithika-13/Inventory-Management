@@ -36,103 +36,79 @@
     text-align: center;
     width: 100%;
 }
+
+
 .alignRight {
     position: absolute;
-    right: 20%; /* Distance from the right edge */
-    top: 70%; /* Distance from the top edge */
-    z-index: 10; 
+    right: 12.3rem; /* Distance from the right edge */
+    top: 17.5rem; /* Distance from the top edge */
+    z-index: 10;
     /* Circle Properties */
-    width: 70px; /* Set a fixed width */
-    height: 70px; /* Set the same height to make it a circle */
-    background-color:  #dbe6ef; /* Background color for the circle */
-    border-radius: 50%; /* Make it a circle */
-    display: flex; /* Center the content */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    color: white; /* Text color inside the circle */
-    font-weight: bold; /* Bold text */
+    width: 4.375rem; /* Fixed width of 70px converted to rem */
+    height: 4.375rem; /* Fixed height of 70px converted to rem */
+    background-color:  #dbe6ef;
+    border-radius: 50%; /* Circle shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
 }
+
 .alignRightabove {
     position: absolute;
-    right: 19%; /* Distance from the right edge */
-    top: 65%; /* Distance from the top edge */
-    z-index: 10; 
-}
-.alignRightrect{
-    position: absolute;
-    right: 16%;
-    top: 25%;
-    
+    right: 12.1rem; /* Distance from the right edge */
+    top: 16.25rem; /* Distance from the top edge */
     z-index: 10;
-    width: 150px;  /* Adjust as needed */
-    height: 70px;  /* Adjust as needed */
+}
+
+.alignRightrect {
+    position: absolute;
+    right: 10rem; /* Distance from the right edge */
+    top: 6.25rem; /* Distance from the top edge */
+    z-index: 10;
+    width: 9.375rem;  /* Adjusted to 150px */
+    height: 4.375rem;  /* Adjusted to 70px */
     background-color: #dbe6ef;
-    border-radius: 12px;  /* Rounded corners */
-  
+    border-radius: 0.75rem;  /* Rounded corners */
+    display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
-   
-}
-.alignRightaboverect{
-    position: absolute;
-    right: 19.5%; /* Distance from the right edge */
-    top: 20%; /* Distance from the top edge */
-    z-index: 10; 
 }
 
-
-.alignLeftrect{
+.alignRightaboverect {
     position: absolute;
-    right: 77.5%;
-    top: 25%;
-    
+    right: 12.3rem; /* Distance from the right edge */
+    top: 5rem; /* Distance from the top edge */
     z-index: 10;
-    width: 150px;  /* Adjust as needed */
-    height: 70px;  /* Adjust as needed */
-    background-color: #dbe6ef;
-    border-radius: 12px;  /* Rounded corners */
-  
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-   
-}
-.alignLeftaboverect{
-    position: absolute;
-    right: 81%; /* Distance from the right edge */
-    top: 20%; /* Distance from the top edge */
-    z-index: 10; 
 }
 
-.alignLeftcircle{
+
+
+
+.alignLeftcircle {
     position: absolute;
-    right: 77.5%;
-    top: 50%;
-    
-    z-index: 10;
-    width: 150px;  /* Adjust as needed */
-    height: 70px;  /* Adjust as needed */
-    background-color: #dbe6ef;
-    border-radius: 12px;  /* Rounded corners */
-  
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-   
+    top: 0.625rem;  /* Adjusted to 10px */
+    left: 0.625rem;  /* Adjusted to 10px */
+    text-align: left;
 }
-.alignLeftabovecircle{
+
+.alignLeftabovecircle {
     position: absolute;
-    right: 76.5%; /* Distance from the right edge */
-    top: 45%; /* Distance from the top edge */
-    z-index: 10; 
+    top: 3.125rem; /* Adjusted to 50px */
+    left: 3.125rem; /* Adjusted to 50px */
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 0.125rem solid #3498db; /* Adjusted to 2px */
+    padding: 0.625rem; /* Adjusted to 10px */
+    border-radius: 50%;
+}
+
+.idPieChart {
+    position: absolute;
+    width: 100%;
+    height: 25rem; /* Adjusted to 400px */
 }
