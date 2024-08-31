@@ -60,7 +60,7 @@
                                     <Text text="{i18n>supplierNameColumn}"/>
                                 </Column>
                                 <Column width="15%">
-                                    <Text text="{i18n>productIdColumn}"/> <!-- Added Product ID column -->
+                                    <Text text="{i18n>productIDColumn}"/> <!-- Added Product ID column -->
                                 </Column>
                                 <Column width="20%">
                                     <Text text="{i18n>contactNameColumn}"/>

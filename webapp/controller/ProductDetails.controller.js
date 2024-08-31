@@ -62,7 +62,7 @@ sap.ui.define([
             //oPopover.setModel(oFilteredSupplierModel, "suppliersModel");
             aSupplierIds.forEach(function (supplierId) {
                 var oSelectedSupplier = oSupplierModel.getProperty("/Suppliers").find(function (row) {
-                    return row.supplier_id === supplierId;
+                    return row.supplier_id == supplierId;
                 });
                 if (oSelectedSupplier) {
                     aSelectedSuppliers.push(oSelectedSupplier); // Add the supplier details to the array
@@ -76,7 +76,7 @@ sap.ui.define([
             // Assuming you want to perform some action when the Manage Supplier button is pressed
         },
         onSupplierDetailsPress: function (oEvent) {
-            console.log("chekcng")
+
             let oPopover = this.byId("supplierPopover");
             oPopover.setVisible(true)
             console.log("oEvent", oEvent)
@@ -85,7 +85,7 @@ sap.ui.define([
             let opanel = this.byId("supplierDetailsPane")
             opanel.setVisible(true)
 
-            oPopover.setVisible(false)
+
             let currentWidth = oSplitter.getWidth();
             if (currentWidth === "200%") {
                 oSplitter.setWidth("135%");
@@ -109,28 +109,12 @@ sap.ui.define([
 
             // Set the new model to the Popover
             oPopover.setModel(oSupplierDetailsModel, "suppliersDetailModel");
-            // Open the Popover
             oPopover.openBy(oSource);
+            // Open the Popover
+            //oPopover.open();
             ///var oProductsModel = this.getView().getModel("productsModel");
             /// var aSupplierIds = oProductsModel.getProperty("/supplier_ids");
-            ///var oSupplierModel = this.getView().getModel("suppliersModel");
-            ///var aSuppliers = oSupplierModel.getProperty("/Suppliers");
-            // Filter suppliers based on the supplier_ids of the selected product
-            ///var aSelectedSuppliers = [];
-            // Set the filtered suppliers to the Popover's model
-            //var oFilteredSupplierModel = new JSONModel({ Suppliers: aSuppliers });
-            //oPopover.setModel(oFilteredSupplierModel, "suppliersModel");
-            /// aSupplierIds.forEach(function (supplierId) {
-            ///var oSelectedSupplier = oSupplierModel.getProperty("/Suppliers").find(function (row) {
-            ///return row.supplier_id === supplierId;
-            /// });
-            /// if (oSelectedSupplier) {
-            ///  aSelectedSuppliers.push(oSelectedSupplier); // Add the supplier details to the array
-            ///}
-            ///});
-            /// console.log("aSelectedSuppliers", aSelectedSuppliers)
-            /// oPopover.setModel(new JSONModel(aSelectedSuppliers), "suppliersModel");
-            /// oPopover.openBy(oButton);
+
         },
         delete: function () {
             let oProductsModel = this.getView().getModel("productsModel");
@@ -158,9 +142,11 @@ sap.ui.define([
             var oDialog = new sap.m.Dialog({
                 title: 'Confirm Deletion',
                 type: 'Message',
+
                 content: new sap.m.Text({ text: 'Are you sure you want to delete this product?' }),
                 beginButton: new sap.m.Button({
                     text: 'Yes',
+                    type: sap.m.ButtonType.Reject,
                     press: function () {
                         // Get the model and products array
                         var oModel = that.getOwnerComponent().getModel("productsModel");

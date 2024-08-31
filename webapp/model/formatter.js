@@ -120,7 +120,7 @@ sap.ui.define([], function () {
             // Check if the input is a valid number
 
             // Check if the quantity is a positive number
-            else if (sValue <= 0) {
+            else if (sValue < 0) {
                 bValid = false;
                 sMessage = "Quantity must be a greater than zero.";
             }

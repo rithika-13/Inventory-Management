@@ -78,7 +78,7 @@
                                         />
                                         <Text text="{path: 'productsModel>price_per_unit', formatter: '.formatter.formatCurrency'}"/>
                                         <HBox>
-                                            <Button icon="sap-icon://edit" press="onEditProduct"/>
+                                            <Button icon="sap-icon://edit" press="onEditProduct" />
                                         </HBox>
                                         <Image
                                             src="{productsModel>thumbnail}"

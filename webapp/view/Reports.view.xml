@@ -47,52 +47,26 @@
                         <uxap:subSections >
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
-                             
-    <!-- This is the overlay box that will display the selected category -->
-                             <!--   <VBox class="chartContainer" width="100%" height="430px">
-                                    
-<VBox class="alignRightabove">
-                                    <Title id="circletext" text="Total Stock " visible="false" />
-                                </VBox>
-                                <VBox id="circle" class="alignRight" visible="false">
-                                    <Text id="valuecircle" />
-                                </VBox>
-                                <VBox class="alignRightaboverect">
-                                    <Title id="recttext" text="Most sold" visible="false"/>
-                                </VBox>
-                                <VBox id="rect" class="alignRightrect" visible="false">
-                                    <Text id="rectvalue" />
-                                </VBox>
-                                <VBox class="alignLeftaboverect">
-                                    <Title id="recttextLeft" text="Most rated" visible="false"/>
-                                </VBox>
-                                <VBox id="rectLeft" class="alignLeftrect" visible="false">
-                                    <Text id="rectvalueLeft" />
-                                </VBox>
-                                <VBox class="alignLeftabovecircle">
-                                    <Title id="circletextLeft" text="Most revenue generated" visible="false"/>
-                                </VBox>
-                                <VBox id="circleLeft" class="alignLeftcircle" visible="false">
-                                    <Text id="circlevalueLeft" />
-                                </VBox>-->
+     
 
 
                                             <f:Card width="100%" id="chart">
                                             <f:content>
                                                 <VBox width="100%">
                                                     <Title text="" class="centeredTitle" />
-                                                     <viz:VizFrame
-                                                        id="idPieChart"
-                                                        uiConfig="{applicationSet:'fiori'}"
-                                                        vizType="pie"
-                                                       width="100%"
-                                                        height="400px"
-                                                        selectData="onPieChartSelect"
-                                                        vizProperties="{
-                                                            plotArea: {
-                                                                colorPalette: ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6', '#f1c40f']
-                                                            }
-                                                        }">
+                                                        <viz:VizFrame
+                                                            id="idPieChart"
+                                                            uiConfig="{applicationSet:'fiori'}"
+                                                            vizType="pie"
+                                                        width="100%"
+                                                            height="400px"
+                                                            selectData="onPieChartSelect"
+                                                            vizProperties="{
+                                                                plotArea: {
+                                                                    colorPalette: ['#3498db', '#e74c3c', '#2ecc71', '#9b59b6', '#f1c40f']
+                                                                }
+                                                            }"
+                                                    >
                                                       <viz:dataset>
                                                             <viz.data:FlattenedDataset
                                                                 data="{pieChartModel>/Categories}">
@@ -119,9 +93,22 @@
                                                                 values="Category"/>
                                                         </viz:feeds>
                                                     </viz:VizFrame>
-                                                </VBox>
+                                            </VBox>
                                             </f:content>
                                         </f:Card>
+                                         <f:Card width="100%" height="417px">
+                                        <f:content>
+                                            <VBox width="100%">
+                                                <Title text="Stats" class="centeredTitle" />
+                                        <List id="stats" items="{
+                                    path: 'myModel>/items'
+                                }">
+                                    <StandardListItem title="{myModel>description}" description="{myModel>title}" />
+                                </List>
+
+                                            </VBox>
+                                        </f:content>
+                                    </f:Card>
                                       <!-- </VBox>-->
                                 </uxap:blocks>
                             </uxap:ObjectPageSubSection>
@@ -137,7 +124,7 @@
                                 <f:Card width="100%">
                                             <f:content>
                                                 <VBox width="100%">
-                                                    <Title text="Price vs Quantity Bubble Chart" class="centeredTitle" />
+                                                    <Title text="" class="centeredTitle" />
                                                     <viz:VizFrame
                                                         id="idBubbleChart"
                                                         vizType="bubble"
@@ -191,19 +178,7 @@
                                                 </VBox>
                                             </f:content>
                                         </f:Card>
-                                    <f:Card width="auto" height="425px">
-                                        <f:content>
-                                            <VBox width="100%">
-                                                <Title text="Other Information" class="centeredTitle" />
-                                                <List>
-                                                    <StandardListItem title="Item 1" description="Description of Item 1"/>
-                                                    <StandardListItem title="Item 2" description="Description of Item 2"/>
-                                                    <StandardListItem title="Item 3" description="Description of Item 3"/>
-                                                    <!-- Add more items as needed -->
-                                                </List>
-                                            </VBox>
-                                        </f:content>
-                                    </f:Card>
+                                    
                                 </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>

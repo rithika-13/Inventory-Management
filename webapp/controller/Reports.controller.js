@@ -11,91 +11,154 @@ sap.ui.define([
         formatter: formatter,
         onInit: function () {
 
-            var oRouter = this.getOwnerComponent().getRouter();
+            let oRouter = this.getOwnerComponent().getRouter();
             oRouter.attachRouteMatched(this.onRouteMatched, this);
 
         },
         onRouteMatched: function (oEvent) {
-            console.log("each time 111")
-            var sRouteName = oEvent.getParameter("name");
-            var oNavigationList = this.getView().byId("navigationList");
-            var oProductsModel = this.getOwnerComponent().getModel("productsModel");
-            var aProducts = oProductsModel.getProperty("/Products");
-            var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.attachRouteMatched(this.onRouteMatched, this);
-            var oVizFrame = this.byId("idPieChart");
-            //var oVizFrame = this.byId("idPieChart");
-
-            // Get the vizProperties
-            var vizProperties = oVizFrame.getVizProperties();
-
-            // You need to access the properties related to colors
-            //var colorProperties = vizProperties.legend.items;
-
-            // Log the color properties to the console
-            console.log("check", vizProperties);
+            let sRouteName = oEvent.getParameter("name");
+            let oNavigationList = this.getView().byId("navigationList");
+            let oProductsModel = this.getOwnerComponent().getModel("productsModel");
+            let aProducts = oProductsModel.getProperty("/Products");
+            let oToolPage = this.getView().byId("reports");
+            let bSideExpanded = oToolPage.getSideExpanded();// gives a boolean value, true or false and then sets to neagtion
+            //console.log("expland",bSideExpanded)// true or false value
+            oToolPage.setSideExpanded(!bSideExpanded);
+            let oVizFrame = this.byId("idPieChart");
             // Set the VizFrame properties
             oVizFrame.setVizProperties({
                 title: {
-
                     visible: false
-
                 },
                 tooltip: {
                     visible: true,
-                    formatString: "chchc" // This ensures the numbers are displayed in the tooltip
                 },
                 plotArea: {
-                    dataPointSize: {
-                        max: 35,
-                        min: 30
-                    },
+
                     dataLabel: {
                         visible: true,
                         showTotal: false,
-                        hideWhenOverlap: true
-                    }
-                },
-                interaction: {
-                    selectability: {
-                        mode: "single"
                     }
                 },
                 legend: {
                     visible: true
                 }
-            });
-            // Initialize category counts
-            var oCategoryCount = {
-                "ERP Software": 0,
-                "Cloud Platform": 0
-            };
 
-            // Count the number of products in each category
+            });
+
+            let oCategoryStockLevels = {};
+            //stock levels
             aProducts.forEach(function (product) {
-                if (product.category === "ERP Software") {
-                    oCategoryCount["ERP Software"]++;
-                } else if (product.category === "Cloud Platform") {
-                    oCategoryCount["Cloud Platform"]++;
+                let sCategory = product.category; // Assuming each product has a 'category' field
+                let iStockLevel = product.quantity_in_stock; // Assuming each product has a 'quantity_in_stock' field
+                // If the category is not yet in the dictionary, initialize it
+                if (!oCategoryStockLevels[sCategory]) {
+                    oCategoryStockLevels[sCategory] = 0;
                 }
+
+                // Add the stock level of the product to its category
+                oCategoryStockLevels[sCategory] += parseInt(iStockLevel);;
+            });
+            let aCategoryStockData = Object.keys(oCategoryStockLevels).map(function (sCategory) {
+                return {
+                    category: sCategory,
+                    count: oCategoryStockLevels[sCategory]
+                };
             });
 
-            // Create a model for the pie chart data
-            var oPieChartData = {
-                Categories: [
-                    { category: "ERP Software", count: oCategoryCount["ERP Software"] },
-                    { category: "Cloud Platform", count: oCategoryCount["Cloud Platform"] }
-                ]
+            let oPieChartData = {
+                Categories: aCategoryStockData
             };
-
             // Set the pie chart model to the view
-            var oPieChartModel = new JSONModel(oPieChartData);
+            let oPieChartModel = new JSONModel(oPieChartData);
             this.getView().setModel(oPieChartModel, "pieChartModel");
-            console.log(oPieChartModel)
             // Set the products model to the view (if not already set)
             this.getView().setModel(oProductsModel, "productsModel");
             // Set the selected key based on the route name
+            this.onPiechartinit()
             oNavigationList.setSelectedKey(sRouteName);
+        },
+        onPiechartinit: function () {
+            var oProductsModel = this.getOwnerComponent().getModel("productsModel");
+            var aProducts = oProductsModel.getProperty("/Products");
+            var omod = this.getOwnerComponent().getModel("inventory");
+            var transactions = omod.getData()
+            transactions = transactions.InventoryTransactions
+            const productPurchaseMap = {};
+
+            transactions.forEach((transaction) => {
+                // Only consider 'IN' (purchased) transactions
+                if (transaction.transaction_type === "OUT") {
+                    const productId = transaction.product_name;
+                    const quantity = transaction.quantity;
+                    productPurchaseMap[productId] = []
+                    // Sum up the quantity for each product
+                    if (!productPurchaseMap[productId]) {
+                        productPurchaseMap[productId] = [];
+                    }
+                    if (productPurchaseMap[productId][0]) {
+                        productPurchaseMap[productId][0] += parseInt(quantity);
+                    } else {
+                        productPurchaseMap[productId][0] = parseInt(quantity);
+                    }
+                    productPurchaseMap[productId][1] = parseInt(transaction.price_per_unit);
+                }
+            });
+
+            // const maxValue = Math.max(...Object.values(productPurchaseMap));
+            const maxKey = Object.keys(productPurchaseMap).reduce((a, b) =>
+                productPurchaseMap[a][0] > productPurchaseMap[b][0] ? a : b
+            );
+            const maxValue = productPurchaseMap[maxKey][0];
+            let maxProduct = -Infinity; // Initialize with a very low value
+            let prod = ""
+            // Iterate over each key-value pair in the dictionary
+            for (let key in productPurchaseMap) {
+                let values = productPurchaseMap[key];
+
+                // Ensure there are exactly two values in the array
+
+                let product = values[0] * values[1]; // Multiply the two values
+
+                // Update maxProduct if the current product is greater
+                if (product > maxProduct) {
+                    maxProduct = product;
+                    prod = key
+                }
+
+            }
+
+            let istock = 0
+            aProducts.forEach(function (product) {
+
+                let iStockLevel = product.quantity_in_stock; // Assuming each product has a 'quantity_in_stock' field
+
+
+                istock += iStockLevel
+
+            });
+            var oData = {
+                items: [
+                    {
+                        title: istock,
+                        description: "Stock Level"
+                    },
+                    {
+                        title: maxKey + ": " + maxValue,
+                        description: "Most sold product"
+                    },
+                    {
+                        title: prod + ": " + formatter.formatCurrency(maxProduct),
+                        description: "Most revenue generated"
+                    }
+                ]
+            };
+
+            // Set the data to a JSON model
+            var oModel = new sap.ui.model.json.JSONModel(oData);
+
+
+            this.getView().setModel(oModel, "myModel");
         },
         onNavSelect: function (oEvent) {
             var oRouter = this.getOwnerComponent().getRouter();
@@ -108,110 +171,100 @@ sap.ui.define([
 
         onPieChartSelect: function (oEvent) {
 
-            var orecttext = this.byId("sidePanel")
-            orecttext.setVisible(true)
-            /*
-                        var oData = oEvent.getParameter("data");
-                        console.log(oData[0].data.Category)
-                        this.byId("chart").setWidth("100%")
-                        var oCircletext = this.byId("circletext")
-                        oCircletext.setVisible(true)
-                        var oCircle = this.byId("circle")
-                        oCircle.setVisible(true)
-                        var otext = this.byId("valuecircle")
-            
-            
-                        var orecttext = this.byId("recttext")
-                        orecttext.setVisible(true)
-                        var orect = this.byId("rect")
-                        orect.setVisible(true)
-                        var otextrect = this.byId("rectvalue")
-            
-            
-                        var orecttextleft = this.byId("circletextLeft")
-                        orecttextleft.setVisible(true)
-                        var orectleft = this.byId("circleLeft")
-                        orectleft.setVisible(true)
-                        var otextrectleft = this.byId("circlevalueLeft")
-            
-            
-                        var oProductsModel = this.getOwnerComponent().getModel("productsModel");
-                        var aProducts = oProductsModel.getProperty("/Products");
-                        var oInventoryModel = this.getView().getModel("inventory");
-                        var omod = this.getOwnerComponent().getModel("inventory");
-                        var transactions = omod.getData()
-                        transactions = transactions.InventoryTransactions
-                        console.log(transactions)
-                        const productPurchaseMap = {};
-            
-                        // Loop through each transaction
-                        transactions.forEach((transaction) => {
-                            // Only consider 'IN' (purchased) transactions
-                            if (transaction.transaction_type === "OUT" && transaction.category == oData[0].data.Category) {
-                                const productId = transaction.product_name;
-                                const quantity = transaction.quantity;
-                                productPurchaseMap[productId] = []
-                                // Sum up the quantity for each product
-                                if (!productPurchaseMap[productId]) {
-                                    productPurchaseMap[productId] = [];
-                                }
-                                if (productPurchaseMap[productId][0]) {
-                                    productPurchaseMap[productId][0] += parseInt(quantity);
-                                } else {
-                                    productPurchaseMap[productId][0] = parseInt(quantity);
-                                }
-                                productPurchaseMap[productId][1] = parseInt(transaction.price_per_unit);
-                            }
-                        });
-            
-                        // const maxValue = Math.max(...Object.values(productPurchaseMap));
-                        const maxKey = Object.keys(productPurchaseMap).reduce((a, b) =>
-                            productPurchaseMap[a][0] > productPurchaseMap[b][0] ? a : b
-                        );
-                        let maxProduct = -Infinity; // Initialize with a very low value
-                        let prod = ""
-                        // Iterate over each key-value pair in the dictionary
-                        for (let key in productPurchaseMap) {
-                            let values = productPurchaseMap[key];
-            
-                            // Ensure there are exactly two values in the array
-            
-                            let product = values[0] * values[1]; // Multiply the two values
-            
-                            // Update maxProduct if the current product is greater
-                            if (product > maxProduct) {
-                                maxProduct = product;
-                                prod = key
-                            }
-            
-                        }
-                        console.log(maxProduct, prod)
-            
-                        const maxValue = productPurchaseMap[maxKey][0];
-            
-            
-            
-            
-                        var oCategoryStockLevels = {};
-            
-                        aProducts.forEach(function (product) {
-                            var sCategory = product.category; // Assuming each product has a 'category' field
-                            var iStockLevel = product.quantity_in_stock; // Assuming each product has a 'quantity_in_stock' field
-            
-                            // If the category is not yet in the dictionary, initialize it
-                            if (!oCategoryStockLevels[sCategory]) {
-                                oCategoryStockLevels[sCategory] = 0;
-                            }
-            
-                            // Add the stock level of the product to its category
-                            oCategoryStockLevels[sCategory] += parseInt(iStockLevel);;
-                        });
-                        otext.setText(oCategoryStockLevels[oData[0].data.Category])
-                        otextrect.setText(maxKey + ": " + maxValue);
-                        otextrectleft.setText(prod + ":  " + formatter.formatCurrency(maxProduct));
-                        // Now, oCategoryStockLevels contains the total stock level for each category
-                        console.log(oCategoryStockLevels[oData[0].data.Category]);
-            */
+            var oList = this.byId("stats")
+            oList.setVisible(true)
+
+            var oData = oEvent.getParameter("data");
+            console.log(oData[0].data.Category)
+            var oProductsModel = this.getOwnerComponent().getModel("productsModel");
+            var aProducts = oProductsModel.getProperty("/Products");
+            var omod = this.getOwnerComponent().getModel("inventory");
+            var transactions = omod.getData()
+            transactions = transactions.InventoryTransactions
+            const productPurchaseMap = {};
+
+            //  max sold and revenue generated in terms of admin-OUT  tansaction
+            transactions.forEach((transaction) => {
+                // Only consider 'IN' (purchased) transactions
+                if (transaction.transaction_type === "OUT" && transaction.category == oData[0].data.Category) {
+                    const productId = transaction.product_name;
+                    const quantity = transaction.quantity;
+                    productPurchaseMap[productId] = []
+                    // Sum up the quantity for each product
+                    if (!productPurchaseMap[productId]) {
+                        productPurchaseMap[productId] = [];
+                    }
+                    if (productPurchaseMap[productId][0]) {
+                        productPurchaseMap[productId][0] += parseInt(quantity);
+                    } else {
+                        productPurchaseMap[productId][0] = parseInt(quantity);
+                    }
+                    productPurchaseMap[productId][1] = parseInt(transaction.price_per_unit);
+                }
+            });
+
+            // const maxValue = Math.max(...Object.values(productPurchaseMap));
+            const maxKey = Object.keys(productPurchaseMap).reduce((a, b) =>
+                productPurchaseMap[a][0] > productPurchaseMap[b][0] ? a : b
+            );
+
+            let maxProduct = -Infinity; // Initialize with a very low value
+            let prod = ""
+            // Iterate over each key-value pair in the dictionary
+            for (let key in productPurchaseMap) {
+                let values = productPurchaseMap[key];
+
+                // Ensure there are exactly two values in the array
+
+                let product = values[0] * values[1]; // Multiply the two values
+
+                // Update maxProduct if the current product is greater
+                if (product > maxProduct) {
+                    maxProduct = product;
+                    prod = key
+                }
+
+            }
+            const maxValue = productPurchaseMap[maxKey][0];
+            var oCategoryStockLevels = {};
+            //stock levels
+            aProducts.forEach(function (product) {
+                var sCategory = product.category; // Assuming each product has a 'category' field
+                var iStockLevel = product.quantity_in_stock; // Assuming each product has a 'quantity_in_stock' field
+                // If the category is not yet in the dictionary, initialize it
+                if (!oCategoryStockLevels[sCategory]) {
+                    oCategoryStockLevels[sCategory] = 0;
+                }
+
+                // Add the stock level of the product to its category
+                oCategoryStockLevels[sCategory] += parseInt(iStockLevel);;
+            });
+            //create model for it
+            var oData = {
+                items: [
+                    {
+                        title: oCategoryStockLevels[oData[0].data.Category],
+                        description: "Category Stock Level"
+                    },
+                    {
+                        title: maxKey + ": " + maxValue,
+                        description: "Most sold product"
+                    },
+                    {
+                        title: prod + ": " + formatter.formatCurrency(maxProduct),
+                        description: "Most revenue generated"
+                    }
+                ]
+            };
+
+            // Set the data to a JSON model
+            var oModel = new sap.ui.model.json.JSONModel(oData);
+
+
+            this.getView().setModel(oModel, "myModel");
+
+
+
 
         },
         onSideNavButtonPress: function () {

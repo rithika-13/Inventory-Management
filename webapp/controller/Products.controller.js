@@ -116,6 +116,7 @@ sap.ui.define([
                 content: new sap.m.Text({ text: 'Are you sure you want to delete the selected product(s)?' }),
                 beginButton: new sap.m.Button({
                     text: 'Yes',
+                    type: sap.m.ButtonType.Emphasized,
                     press: function () {
                         // Get the model and products array
                         let oModel = that.getView().getModel("productsModel");

@@ -16,10 +16,14 @@ sap.ui.define([
             oRouter.attachRouteMatched(this.onRouteMatched, this);
         },
         onRouteMatched: function (oEvent) {
-
+            var oToolPage = this.getView().byId("suppliers");//get section of ui that has 'prod'
+            var bSideExpanded = oToolPage.getSideExpanded();// gives a boolean value, true or false and then sets to neagtion
+            //console.log("expland",bSideExpanded)// true or false value
+            oToolPage.setSideExpanded(!bSideExpanded);
             let sRouteName = oEvent.getParameter("name");
             let oNavigationList = this.getView().byId("navigationList");
             console.log(sRouteName)
+
             // Set the selected key based on the route name
             oNavigationList.setSelectedKey(sRouteName);
         },
@@ -242,6 +246,15 @@ sap.ui.define([
                     product_ids: sProductId
                 };
 
+                let oProdModel = this.getOwnerComponent().getModel("productsModel");
+                let oData = oProdModel.getData().Products
+
+
+                let foundProduct = oData.find(product => product.product_id === sProductId);
+                foundProduct.supplier_ids.push(Date.now().toString());
+                console.log(foundProduct)
+                oProdModel.setProperty("/Products", oData);
+                console.log(this.getOwnerComponent().getModel("productsModel"))
                 // Add new supplier to the model
                 var oModel = this.getView().getModel("suppliersModel");
                 var aSuppliers = oModel.getProperty("/Suppliers");
